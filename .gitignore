@@ -1,0 +1,19 @@
+bin/
+.settings/
+target/
+setup/Output/
+setup/Files/gsdll32.dll
+setup/Files/gswin32c.exe
+setup/Files/prunmgr.exe
+setup/Files/prunsrv.exe
+setup/Files/PrintServer.jar
+setup/Files/LICENSE.txt
+
+# Eclipse Core
+.project
+
+# JDT-specific (Eclipse Java Development Tools)
+.classpath
+
+gsdll32.dll
+gswin32c.exe

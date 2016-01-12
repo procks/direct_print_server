@@ -1,0 +1,51 @@
+syntax = "proto3";
+
+option java_package = "com.solvaig.print";
+
+package print;
+
+// The print service definition.
+service ServerPrintService {
+  rpc GetPrintServices (Empty) returns (PrintServices) {}
+  // Print
+  rpc Print (stream PrintContent) returns (PrintResponse) {}
+}
+
+// The request message containing the print content.
+message PrintContent {
+  oneof print_content_type {
+    PrintInfo printInfo = 1;
+	bytes content = 2;
+  }
+}
+
+message PrintInfo {
+  string printerName = 1;
+  string mediaSize = 2;
+  int32 orientation = 3;
+  int32 pageSizeWidth = 4;
+  int32 pageSizeHeight = 5;
+
+  int32 colorMode = 6;
+  int32 duplexMode = 7;
+  repeated PageRange pageRange = 8;
+  int32 copies = 9;
+  string label = 10;
+  int64 creationTime = 11;
+}
+
+message PageRange {
+  int32 startPage = 1;
+  int32 endPage = 2;
+}
+
+// The response message containing the result
+message PrintResponse {
+  int32 result = 1;
+}
+
+message Empty {}
+
+message PrintServices {
+  repeated string name = 1;
+}
