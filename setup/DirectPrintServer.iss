@@ -2,7 +2,7 @@
 ; SEE THE DOCUMENTATION FOR DETAILS ON CREATING INNO SETUP SCRIPT FILES!
 
 #define MyAppName "Direct Print Server"
-#define MyAppVersion "1.0"
+#define MyAppVersion "0.1-alpha.3"
 #define MyAppPublisher "JSC Solvaig"
 #define MyAppURL "https://github.com/procks/direct_print_server"
 
@@ -42,7 +42,14 @@ en.User=User
 en.Password=Password
 en.ConfirmPassword=Confirm password
 en.PleaseEnterUser=Please enter User
+en.PleaseEnterPass=Please enter Password
 en.PasswordNotMatch=Password does not match the confirm password
+en.Configure=Configure Service %1
+en.Monitor=Monitor Service %1
+en.StartService=Start Service %1
+en.StopService=Stop Service %1
+en.Start=Start %1
+en.Stop=Stop %1
 
 ru.InstallingService=Установка службы "Direct Print Service"
 ru.UninstallingService=Удаление службы "Direct Print Service"
@@ -53,7 +60,14 @@ ru.User=Пользователь
 ru.Password=Пароль
 ru.ConfirmPassword=Подтвердите пароль
 ru.PleaseEnterUser=Введите имя пользователя
+ru.PleaseEnterPass=Введите пароль
 ru.PasswordNotMatch=Несовпадение паролей
+ru.Configure=Configure Service %1
+ru.Monitor=Monitor Service %1
+ru.StartService=Start Service %1
+ru.StopService=Stop Service %1
+ru.Start=Start %1
+ru.Stop=Stop %1
 
 uk.InstallingService=Встановлення служби "Direct Print Service"
 uk.UninstallingService=Видалення служби "Direct Print Service"
@@ -64,12 +78,21 @@ uk.User=Користувач
 uk.Password=Пароль
 uk.ConfirmPassword=Підтвердіть пароль
 uk.PleaseEnterUser=Введіть ім'я користувача
+uk.PleaseEnterPass=Введіть пароль
 uk.PasswordNotMatch=Неспівпадіння паролів
+uk.Configure=Configure Service %1
+uk.Monitor=Monitor Service %1
+uk.StartService=Start Service %1
+uk.StopService=Stop Service %1
+uk.Start=Start %1
+uk.Stop=Stop %1
 
 [Files]
 Source: "Files\prunsrv.exe"; DestDir: "{app}"; Flags: ignoreversion
 Source: "Files\gsdll32.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "Files\gswin32c.exe"; DestDir: "{app}"; Flags: ignoreversion
+Source: "Files\start.cmd"; DestDir: "{app}"; Flags: ignoreversion
+Source: "Files\stop.cmd"; DestDir: "{app}"; Flags: ignoreversion
 Source: "Files\install.cmd"; DestDir: "{app}"; Flags: ignoreversion
 Source: "Files\install_ex.cmd"; DestDir: "{app}"; Flags: ignoreversion
 Source: "Files\LICENSE.txt"; DestDir: "{app}"; Flags: ignoreversion
@@ -79,11 +102,32 @@ Source: "Files\prunsrv.exe"; DestDir: "{app}"; Flags: ignoreversion
 Source: "Files\uninstall.cmd"; DestDir: "{app}"; Flags: ignoreversion
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
 
+[Components]
+Name: "program"; Description: "Program Files"; Types: full compact custom; Flags: fixed
+Name: "autostart"; Description: "Autostart"; Types: full
+Name: "autostart\sturtup"; Description: "SturtUp"; Flags: exclusive;
+Name: "autostart\service"; Description: "Service"; Flags: exclusive;
+
+[Tasks]
+Name: desktopicon; Description: "Create a &desktop icon"; GroupDescription: "Additional icons:"; Components: not autostart\service; Flags: unchecked
+;Name: startAutorun; Description: "Запустить сервер"; Components: autostart\sturtup
+
 [Icons]
 Name: "{group}\{cm:UninstallProgram,{#MyAppName}}"; Filename: "{uninstallexe}"
+Name: "{group}\{cm:Configure,{#MyAppName}}"; Filename: "{app}\prunmgr.exe"; Parameters: "//ES//DirectPrintService"
+Name: "{group}\{cm:Monitor,{#MyAppName}}"; Filename: "{app}\prunmgr.exe"; Parameters: "//MS//DirectPrintService"
+;Name: "{group}\{cm:Start,{#MyAppName}}"; Filename: "{app}\prunsrv.exe"; Parameters: "//RS//DirectPrintService"; WorkingDir: "{app}"
+Name: "{group}\{cm:StartService,{#MyAppName}}"; Filename: "{app}\prunmgr.exe"; Parameters: "//MR//DirectPrintService";
+Name: "{group}\{cm:StopService,{#MyAppName}}"; Filename: "{app}\prunsrv.exe"; Parameters: "//SS//DirectPrintService"
+Name: "{group}\{cm:Start, {#MyAppName}}"; Filename: "{app}\start.cmd"; Components: not autostart\service
+Name: "{group}\{cm:Stop, {#MyAppName}}"; Filename: "{app}\stop.cmd"; Components: not autostart\service
+;Name: "{commonstartup}\{#MyAppName}"; Filename: "javaw -jar"; Parameters: "{app}\PrintServer.jar"; Components: autostart\sturtup
+Name: "{commonstartup}\{#MyAppName}"; Filename: "{app}\start.cmd"; Components: autostart\sturtup
+Name: "{commondesktop}\{cm:Start, {#MyAppName}}"; Filename: "{app}\start.cmd"; Components: not autostart\service; Tasks: desktopicon
 
 [Run]
-Filename: "{app}\install.cmd"; Parameters: "{code:GetUserName} {code:GetPassword}"; WorkingDir: "{app}"; Flags: runhidden; StatusMsg: "{cm:InstallingService}"
+Filename: "{app}\install.cmd"; Parameters: "{code:GetUserName} {code:GetPassword}"; WorkingDir: "{app}"; Flags: runhidden; StatusMsg: "{cm:InstallingService}"; Components: autostart\service
+Filename: "{app}\start.cmd"; WorkingDir: "{app}"; Flags: runhidden; Components: autostart\sturtup
 
 [UninstallRun]
 Filename: "{app}\uninstall.cmd"; WorkingDir: "{app}"; Flags: runhidden; StatusMsg: "{cm:UninstallingService}"
@@ -92,7 +136,7 @@ Filename: "{app}\uninstall.cmd"; WorkingDir: "{app}"; Flags: runhidden; StatusMs
 var
   Page: TInputQueryWizardPage;
   LocalSystemAccountCheckBox: TNewCheckBox;
-  LabelFolder: TLabel;
+  //LabelFolder: TLabel;
   UserEdit: TNewEdit;
   PassEdit: TNewEdit;
   ConfPassEdit: TNewEdit;
@@ -122,8 +166,8 @@ end;
 
 procedure InitializeWizard;
 begin
-   Page := CreateInputQueryPage(wpSelectComponents, //,wpWelcome
-   CustomMessage('ServiceAccountInformation'), CustomMessage('EnterAccountInformation'), '');
+  Page := CreateInputQueryPage(wpSelectComponents, //,wpWelcome
+  CustomMessage('ServiceAccountInformation'), CustomMessage('EnterAccountInformation'), '');
 
   LocalSystemAccountCheckBox := TNewCheckBox.Create(Page);
   LocalSystemAccountCheckBox.Parent := Page.Surface;
@@ -177,9 +221,19 @@ begin
   ConfPassEdit.Enabled := false;
 end;
 
+function ShouldSkipPage(PageID: Integer): Boolean;
+begin
+  // initialize result to not skip any page (not necessary, but safer)
+  Result := False;
+  // if the page that is asked to be skipped is your custom page, then...
+  if PageID = Page.ID then
+    // if the component is not selected, skip the page
+    Result := not IsComponentSelected('autostart\service');
+end;
+
 function NextButtonClick(CurPageID: Integer): Boolean;
-var
-  ResultCode: Integer;
+//var
+//  ResultCode: Integer;
 begin 
   Result := true;
 //  Log('NextButtonClick(' + IntToStr(CurPageID) + ') called');
@@ -189,6 +243,11 @@ begin
         if UserEdit.Text = '' then begin
           Result := false;
           MsgBox(CustomMessage('PleaseEnterUser'), mbInformation, MB_OK);
+          exit;
+        end;
+        if PassEdit.Text = '' then begin
+          Result := false;
+          MsgBox(CustomMessage('PleaseEnterPass'), mbInformation, MB_OK);
           exit;
         end;
         if not (ConfPassEdit.Text = PassEdit.Text) then begin
@@ -215,9 +274,9 @@ begin
 end;
 
 procedure CurUninstallStepChanged (CurUninstallStep: TUninstallStep);
-var
-  mres : integer;
-  ResultCode: Integer;
+//var
+//  mres : integer;
+//  ResultCode: Integer;
 begin
   case CurUninstallStep of
     usPostUninstall:

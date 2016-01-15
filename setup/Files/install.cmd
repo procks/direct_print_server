@@ -5,5 +5,5 @@ prunsrv //US//DirectPrintService --DisplayName="Direct Print Service" ^
 		--StartClass=com.solvaig.print.PrintServer --StartParams=start ^
         --StopClass=com.solvaig.print.PrintServer --StopParams=stop ^
         --Startup=auto --Classpath=%CLASSPATH%;PrintServer.jar ^
-		--ServiceUser=%1 --ServicePassword=%2
+        --ServiceUser=%1 --ServicePassword=%2
 net start DirectPrintService

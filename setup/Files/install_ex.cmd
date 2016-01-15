@@ -28,10 +28,10 @@ prunsrv //US//DirectPrintService --DisplayName="Direct Print Service" ^
 		--StartClass=com.solvaig.print.PrintServer --StartParams=start ^
         --StopClass=com.solvaig.print.PrintServer --StopParams=stop ^
         --Startup=auto --Classpath=%CLASSPATH%;PrintServer.jar ^
-		--LogPrefix=%SERVICE_NAME% ^
-		--LogPath="%APPDATA%\DirectPrintServiceLogs" ^
-		--StdOutput=auto ^
-		--StdError=auto ^
-		--LogLevel=INFO
+        --LogPrefix=%SERVICE_NAME% ^
+        --LogPath="%APPDATA%\DirectPrintServiceLogs" ^
+        --StdOutput=auto ^
+        --StdError=auto ^
+        --LogLevel=INFO
 net start DirectPrintService
 pause

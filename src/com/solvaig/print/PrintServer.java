@@ -1,9 +1,12 @@
 package com.solvaig.print;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
+import java.io.OutputStreamWriter;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
@@ -102,11 +105,15 @@ public class PrintServer {
 			return new StreamObserver<PrintContent>() {
 				private PrintInfo mPrintInfo;
 				private OutputStream mOutputStream;
+//				private BufferedWriter mOutWriter;
 				private BufferedReader mInReader;
+//				private InputStream stderr;
 
 				@Override
 				public void onCompleted() {
+					responseObserver.onCompleted();
 					try {
+						logger.log(Level.INFO, "responseObserver.onCompleted()");
 						mOutputStream.close();
 						String line;
 						while ((line = mInReader.readLine()) != null) {
@@ -116,7 +123,7 @@ public class PrintServer {
 					} catch (IOException e) {
 						e.printStackTrace();
 					}
-					responseObserver.onCompleted();
+					logger.log(Level.INFO, "mOutputStream.close()");
 				}
 
 				@Override
@@ -127,6 +134,8 @@ public class PrintServer {
 				@Override
 				public void onNext(PrintContent printContent) {
 					if (printContent.getPrintContentTypeCase() == PrintContentTypeCase.PRINTINFO) {
+						logger.log(Level.INFO, "PrintContentTypeCase.PRINTINFO");
+
 						mPrintInfo = printContent.getPrintInfo();
 						List<String> list = new ArrayList<String>();
 						list.add("gswin32c.exe");
@@ -148,13 +157,24 @@ public class PrintServer {
 						try {
 							p = pb.start();
 							mOutputStream = p.getOutputStream();
+//							mOutWriter = new BufferedWriter(new OutputStreamWriter(mOutputStream));
 							mInReader = new BufferedReader(new InputStreamReader(p.getInputStream()));
+//							stderr = p.getErrorStream();
+							logger.log(Level.INFO, "p.getOutputStream()");
 						} catch (IOException e1) {
 							e1.printStackTrace();
 						}
 					} else {
 						try {
-							mOutputStream.write(printContent.getContent().toByteArray());
+//							String line;
+//							while ((line = mInReader.readLine()) != null) {
+//								System.out.println(line);
+//							}
+
+							byte[] bytes = printContent.getContent().toByteArray();
+							logger.log(Level.INFO, "bytes");
+							mOutputStream.write(bytes);
+							logger.log(Level.INFO, "mOutputStream.write");
 						} catch (IOException e) {
 							e.printStackTrace();
 						}
@@ -205,7 +225,7 @@ public class PrintServer {
 					System.out.println(getClass().getName() + ">>>Ready to receive broadcast packets!");
 
 					// Receive a packet
-					byte[] recvBuf = new byte[15000];
+					byte[] recvBuf = new byte[1024];
 					DatagramPacket packet = new DatagramPacket(recvBuf, recvBuf.length);
 					socket.receive(packet);
 
