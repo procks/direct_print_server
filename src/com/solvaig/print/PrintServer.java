@@ -179,57 +179,69 @@ public class PrintServer {
 
 		@Override
 		public void getPrintServices(Empty request, StreamObserver<PrintServices> responseObserver) {
-			PrintService[] services = PrintServiceLookup.lookupPrintServices(null, null);
 			PrintServices.Builder builder = PrintServices.newBuilder();
-			for (PrintService service : services) {
-				if (service != null) {
-					String printServiceName = service.getName();
-					builder.addName(printServiceName);
+			try {
+				PrintService[] services = PrintServiceLookup.lookupPrintServices(null, null);
+				for (PrintService service : services) {
+					if (service != null) {
+						try {
+							String printServiceName = service.getName();
+							builder.addName(printServiceName);
 
-					PrintServ.Builder printServiceBuilder = PrintServ.newBuilder();
-					printServiceBuilder.setName(printServiceName);
+							PrintServ.Builder printServiceBuilder = PrintServ.newBuilder();
+							printServiceBuilder.setName(printServiceName);
 
-					Media defMedia = (Media) service.getDefaultAttributeValue(Media.class);
-					Media[] medias = (Media[]) service.getSupportedAttributeValues(Media.class, null, null);
-					for (Media media : medias) {
-						if (media instanceof MediaSizeName) {
-							MediaSizeName msn = (MediaSizeName) media;
-							MediaSize ms = MediaSize.getMediaSizeForName(msn);
-							float width = ms.getX(MediaSize.INCH);
-							float height = ms.getY(MediaSize.INCH);
+							Media defMedia = (Media) service.getDefaultAttributeValue(Media.class);
+							Media[] medias = (Media[]) service.getSupportedAttributeValues(Media.class, null, null);
+							if (medias != null) {
+								for (Media media : medias) {
+									if (media instanceof MediaSizeName) {
+										MediaSizeName msn = (MediaSizeName) media;
+										MediaSize ms = MediaSize.getMediaSizeForName(msn);
+										float width = ms.getX(MediaSize.INCH);
+										float height = ms.getY(MediaSize.INCH);
 
-							PageSize.Builder pageSizeBuilder = PageSize.newBuilder();
-							pageSizeBuilder.setLabel(media.toString());
-							pageSizeBuilder.setWidthMils((int) (width * 1000));
-							pageSizeBuilder.setHeightMils((int) (height * 1000));
-							pageSizeBuilder.setIsDefault(media.equals(defMedia));
-							printServiceBuilder.addPageSize(pageSizeBuilder);
+										PageSize.Builder pageSizeBuilder = PageSize.newBuilder();
+										pageSizeBuilder.setLabel(media.toString());
+										pageSizeBuilder.setWidthMils((int) (width * 1000));
+										pageSizeBuilder.setHeightMils((int) (height * 1000));
+										pageSizeBuilder.setIsDefault(media.equals(defMedia));
+										printServiceBuilder.addPageSize(pageSizeBuilder);
 
-							System.out.println(media.toString() + ": width = " + width + "; height = " + height);
-							if (media.equals(defMedia))
-								System.out.println("default");
+										System.out.println(media.toString() + ": width = " + width + "; height = " + height);
+										if (media.equals(defMedia))
+											System.out.println("default");
+									}
+								}
+							}
+							PrinterResolution defResolutions = (PrinterResolution) service.getDefaultAttributeValue(PrinterResolution.class);
+							PrinterResolution[] resolutions = (PrinterResolution[]) service.getSupportedAttributeValues(PrinterResolution.class, null, null);
+							if (resolutions != null) {
+								for (PrinterResolution pr : resolutions) {
+									int mAttXRes = pr.getCrossFeedResolution(PrinterResolution.DPI);
+									int mAttYRes = pr.getFeedResolution(PrinterResolution.DPI);
+									Resolution.Builder resolutionBuilder = Resolution.newBuilder();
+									resolutionBuilder.setHorizontalDpi(mAttXRes);
+									resolutionBuilder.setVerticalDpi(mAttYRes);
+									resolutionBuilder.setIsDefault(pr.equals(defResolutions));
+									printServiceBuilder.addResolution(resolutionBuilder);
+									System.out.println(pr + " mAttXRes " + mAttXRes + " mAttYRes " + mAttYRes);
+									if (pr.equals(defResolutions))
+										System.out.println("default");
+								}
+							}
+
+							builder.addPrintService(printServiceBuilder);
+							System.out.println("Print Service Name is " + printServiceName);
+						} catch (Exception ex) {
+							Logger.getLogger(DiscoveryThread.class.getName()).log(Level.SEVERE, null, ex);
 						}
+					} else {
+						System.out.println("No default print service found");
 					}
-					PrinterResolution defResolutions = (PrinterResolution) service.getDefaultAttributeValue(PrinterResolution.class);
-					PrinterResolution[] resolutions = (PrinterResolution[]) service.getSupportedAttributeValues(PrinterResolution.class, null, null);
-					for (PrinterResolution pr : resolutions) {
-						int mAttXRes = pr.getCrossFeedResolution(PrinterResolution.DPI);
-						int mAttYRes = pr.getFeedResolution(PrinterResolution.DPI);
-						Resolution.Builder resolutionBuilder = Resolution.newBuilder();
-						resolutionBuilder.setHorizontalDpi(mAttXRes);
-						resolutionBuilder.setVerticalDpi(mAttYRes);
-						resolutionBuilder.setIsDefault(pr.equals(defResolutions));
-						printServiceBuilder.addResolution(resolutionBuilder);
-						System.out.println(pr + " mAttXRes " + mAttXRes + " mAttYRes " + mAttYRes);
-						if (pr.equals(defResolutions))
-							System.out.println("default");
-					}
-
-					builder.addPrintService(printServiceBuilder);
-					System.out.println("Print Service Name is " + printServiceName);
-				} else {
-					System.out.println("No default print service found");
 				}
+			} catch (Exception ex) {
+				Logger.getLogger(DiscoveryThread.class.getName()).log(Level.SEVERE, null, ex);
 			}
 			PrintServices printServices = builder.build();
 			responseObserver.onNext(printServices);

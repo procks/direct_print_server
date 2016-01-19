@@ -2,7 +2,7 @@
 ; SEE THE DOCUMENTATION FOR DETAILS ON CREATING INNO SETUP SCRIPT FILES!
 
 #define MyAppName "Direct Print Server"
-#define MyAppVersion "0.1-alpha.3"
+#define MyAppVersion "0.1-alpha.5"
 #define MyAppPublisher "JSC Solvaig"
 #define MyAppURL "https://github.com/procks/direct_print_server"
 
