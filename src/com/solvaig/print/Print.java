@@ -3274,6 +3274,2299 @@ public final class Print {
 
   }
 
+  public interface PageSizeOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:print.PageSize)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>optional string label = 1;</code>
+     */
+    java.lang.String getLabel();
+    /**
+     * <code>optional string label = 1;</code>
+     */
+    com.google.protobuf.ByteString
+        getLabelBytes();
+
+    /**
+     * <code>optional int32 widthMils = 2;</code>
+     */
+    int getWidthMils();
+
+    /**
+     * <code>optional int32 heightMils = 3;</code>
+     */
+    int getHeightMils();
+
+    /**
+     * <code>optional bool isDefault = 4;</code>
+     */
+    boolean getIsDefault();
+  }
+  /**
+   * Protobuf type {@code print.PageSize}
+   */
+  public  static final class PageSize extends
+      com.google.protobuf.GeneratedMessage implements
+      // @@protoc_insertion_point(message_implements:print.PageSize)
+      PageSizeOrBuilder {
+    // Use PageSize.newBuilder() to construct.
+    private PageSize(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
+      super(builder);
+    }
+    private PageSize() {
+      label_ = "";
+      widthMils_ = 0;
+      heightMils_ = 0;
+      isDefault_ = false;
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return com.google.protobuf.UnknownFieldSet.getDefaultInstance();
+    }
+    private PageSize(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry) {
+      this();
+      int mutable_bitField0_ = 0;
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            default: {
+              if (!input.skipField(tag)) {
+                done = true;
+              }
+              break;
+            }
+            case 10: {
+              String s = input.readStringRequireUtf8();
+
+              label_ = s;
+              break;
+            }
+            case 16: {
+
+              widthMils_ = input.readInt32();
+              break;
+            }
+            case 24: {
+
+              heightMils_ = input.readInt32();
+              break;
+            }
+            case 32: {
+
+              isDefault_ = input.readBool();
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw new RuntimeException(e.setUnfinishedMessage(this));
+      } catch (java.io.IOException e) {
+        throw new RuntimeException(
+            new com.google.protobuf.InvalidProtocolBufferException(
+                e.getMessage()).setUnfinishedMessage(this));
+      } finally {
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return com.solvaig.print.Print.internal_static_print_PageSize_descriptor;
+    }
+
+    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return com.solvaig.print.Print.internal_static_print_PageSize_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              com.solvaig.print.Print.PageSize.class, com.solvaig.print.Print.PageSize.Builder.class);
+    }
+
+    public static final int LABEL_FIELD_NUMBER = 1;
+    private volatile java.lang.Object label_;
+    /**
+     * <code>optional string label = 1;</code>
+     */
+    public java.lang.String getLabel() {
+      java.lang.Object ref = label_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        label_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>optional string label = 1;</code>
+     */
+    public com.google.protobuf.ByteString
+        getLabelBytes() {
+      java.lang.Object ref = label_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        label_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int WIDTHMILS_FIELD_NUMBER = 2;
+    private int widthMils_;
+    /**
+     * <code>optional int32 widthMils = 2;</code>
+     */
+    public int getWidthMils() {
+      return widthMils_;
+    }
+
+    public static final int HEIGHTMILS_FIELD_NUMBER = 3;
+    private int heightMils_;
+    /**
+     * <code>optional int32 heightMils = 3;</code>
+     */
+    public int getHeightMils() {
+      return heightMils_;
+    }
+
+    public static final int ISDEFAULT_FIELD_NUMBER = 4;
+    private boolean isDefault_;
+    /**
+     * <code>optional bool isDefault = 4;</code>
+     */
+    public boolean getIsDefault() {
+      return isDefault_;
+    }
+
+    private byte memoizedIsInitialized = -1;
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (!getLabelBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessage.writeString(output, 1, label_);
+      }
+      if (widthMils_ != 0) {
+        output.writeInt32(2, widthMils_);
+      }
+      if (heightMils_ != 0) {
+        output.writeInt32(3, heightMils_);
+      }
+      if (isDefault_ != false) {
+        output.writeBool(4, isDefault_);
+      }
+    }
+
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (!getLabelBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessage.computeStringSize(1, label_);
+      }
+      if (widthMils_ != 0) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(2, widthMils_);
+      }
+      if (heightMils_ != 0) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(3, heightMils_);
+      }
+      if (isDefault_ != false) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBoolSize(4, isDefault_);
+      }
+      memoizedSize = size;
+      return size;
+    }
+
+    private static final long serialVersionUID = 0L;
+    public static com.solvaig.print.Print.PageSize parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.solvaig.print.Print.PageSize parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.solvaig.print.Print.PageSize parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.solvaig.print.Print.PageSize parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.solvaig.print.Print.PageSize parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input);
+    }
+    public static com.solvaig.print.Print.PageSize parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input, extensionRegistry);
+    }
+    public static com.solvaig.print.Print.PageSize parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return PARSER.parseDelimitedFrom(input);
+    }
+    public static com.solvaig.print.Print.PageSize parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return PARSER.parseDelimitedFrom(input, extensionRegistry);
+    }
+    public static com.solvaig.print.Print.PageSize parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input);
+    }
+    public static com.solvaig.print.Print.PageSize parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input, extensionRegistry);
+    }
+
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(com.solvaig.print.Print.PageSize prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code print.PageSize}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessage.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:print.PageSize)
+        com.solvaig.print.Print.PageSizeOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return com.solvaig.print.Print.internal_static_print_PageSize_descriptor;
+      }
+
+      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return com.solvaig.print.Print.internal_static_print_PageSize_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                com.solvaig.print.Print.PageSize.class, com.solvaig.print.Print.PageSize.Builder.class);
+      }
+
+      // Construct using com.solvaig.print.Print.PageSize.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
+        }
+      }
+      public Builder clear() {
+        super.clear();
+        label_ = "";
+
+        widthMils_ = 0;
+
+        heightMils_ = 0;
+
+        isDefault_ = false;
+
+        return this;
+      }
+
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return com.solvaig.print.Print.internal_static_print_PageSize_descriptor;
+      }
+
+      public com.solvaig.print.Print.PageSize getDefaultInstanceForType() {
+        return com.solvaig.print.Print.PageSize.getDefaultInstance();
+      }
+
+      public com.solvaig.print.Print.PageSize build() {
+        com.solvaig.print.Print.PageSize result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      public com.solvaig.print.Print.PageSize buildPartial() {
+        com.solvaig.print.Print.PageSize result = new com.solvaig.print.Print.PageSize(this);
+        result.label_ = label_;
+        result.widthMils_ = widthMils_;
+        result.heightMils_ = heightMils_;
+        result.isDefault_ = isDefault_;
+        onBuilt();
+        return result;
+      }
+
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof com.solvaig.print.Print.PageSize) {
+          return mergeFrom((com.solvaig.print.Print.PageSize)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(com.solvaig.print.Print.PageSize other) {
+        if (other == com.solvaig.print.Print.PageSize.getDefaultInstance()) return this;
+        if (!other.getLabel().isEmpty()) {
+          label_ = other.label_;
+          onChanged();
+        }
+        if (other.getWidthMils() != 0) {
+          setWidthMils(other.getWidthMils());
+        }
+        if (other.getHeightMils() != 0) {
+          setHeightMils(other.getHeightMils());
+        }
+        if (other.getIsDefault() != false) {
+          setIsDefault(other.getIsDefault());
+        }
+        onChanged();
+        return this;
+      }
+
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        com.solvaig.print.Print.PageSize parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (com.solvaig.print.Print.PageSize) e.getUnfinishedMessage();
+          throw e;
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+
+      private java.lang.Object label_ = "";
+      /**
+       * <code>optional string label = 1;</code>
+       */
+      public java.lang.String getLabel() {
+        java.lang.Object ref = label_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          label_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>optional string label = 1;</code>
+       */
+      public com.google.protobuf.ByteString
+          getLabelBytes() {
+        java.lang.Object ref = label_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          label_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>optional string label = 1;</code>
+       */
+      public Builder setLabel(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        label_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional string label = 1;</code>
+       */
+      public Builder clearLabel() {
+        
+        label_ = getDefaultInstance().getLabel();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional string label = 1;</code>
+       */
+      public Builder setLabelBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        label_ = value;
+        onChanged();
+        return this;
+      }
+
+      private int widthMils_ ;
+      /**
+       * <code>optional int32 widthMils = 2;</code>
+       */
+      public int getWidthMils() {
+        return widthMils_;
+      }
+      /**
+       * <code>optional int32 widthMils = 2;</code>
+       */
+      public Builder setWidthMils(int value) {
+        
+        widthMils_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional int32 widthMils = 2;</code>
+       */
+      public Builder clearWidthMils() {
+        
+        widthMils_ = 0;
+        onChanged();
+        return this;
+      }
+
+      private int heightMils_ ;
+      /**
+       * <code>optional int32 heightMils = 3;</code>
+       */
+      public int getHeightMils() {
+        return heightMils_;
+      }
+      /**
+       * <code>optional int32 heightMils = 3;</code>
+       */
+      public Builder setHeightMils(int value) {
+        
+        heightMils_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional int32 heightMils = 3;</code>
+       */
+      public Builder clearHeightMils() {
+        
+        heightMils_ = 0;
+        onChanged();
+        return this;
+      }
+
+      private boolean isDefault_ ;
+      /**
+       * <code>optional bool isDefault = 4;</code>
+       */
+      public boolean getIsDefault() {
+        return isDefault_;
+      }
+      /**
+       * <code>optional bool isDefault = 4;</code>
+       */
+      public Builder setIsDefault(boolean value) {
+        
+        isDefault_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional bool isDefault = 4;</code>
+       */
+      public Builder clearIsDefault() {
+        
+        isDefault_ = false;
+        onChanged();
+        return this;
+      }
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return this;
+      }
+
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return this;
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:print.PageSize)
+    }
+
+    // @@protoc_insertion_point(class_scope:print.PageSize)
+    private static final com.solvaig.print.Print.PageSize DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new com.solvaig.print.Print.PageSize();
+    }
+
+    public static com.solvaig.print.Print.PageSize getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<PageSize>
+        PARSER = new com.google.protobuf.AbstractParser<PageSize>() {
+      public PageSize parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        try {
+          return new PageSize(input, extensionRegistry);
+        } catch (RuntimeException e) {
+          if (e.getCause() instanceof
+              com.google.protobuf.InvalidProtocolBufferException) {
+            throw (com.google.protobuf.InvalidProtocolBufferException)
+                e.getCause();
+          }
+          throw e;
+        }
+      }
+    };
+
+    public static com.google.protobuf.Parser<PageSize> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<PageSize> getParserForType() {
+      return PARSER;
+    }
+
+    public com.solvaig.print.Print.PageSize getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface ResolutionOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:print.Resolution)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>optional int32 horizontalDpi = 1;</code>
+     */
+    int getHorizontalDpi();
+
+    /**
+     * <code>optional int32 verticalDpi = 2;</code>
+     */
+    int getVerticalDpi();
+
+    /**
+     * <code>optional bool isDefault = 3;</code>
+     */
+    boolean getIsDefault();
+  }
+  /**
+   * Protobuf type {@code print.Resolution}
+   */
+  public  static final class Resolution extends
+      com.google.protobuf.GeneratedMessage implements
+      // @@protoc_insertion_point(message_implements:print.Resolution)
+      ResolutionOrBuilder {
+    // Use Resolution.newBuilder() to construct.
+    private Resolution(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
+      super(builder);
+    }
+    private Resolution() {
+      horizontalDpi_ = 0;
+      verticalDpi_ = 0;
+      isDefault_ = false;
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return com.google.protobuf.UnknownFieldSet.getDefaultInstance();
+    }
+    private Resolution(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry) {
+      this();
+      int mutable_bitField0_ = 0;
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            default: {
+              if (!input.skipField(tag)) {
+                done = true;
+              }
+              break;
+            }
+            case 8: {
+
+              horizontalDpi_ = input.readInt32();
+              break;
+            }
+            case 16: {
+
+              verticalDpi_ = input.readInt32();
+              break;
+            }
+            case 24: {
+
+              isDefault_ = input.readBool();
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw new RuntimeException(e.setUnfinishedMessage(this));
+      } catch (java.io.IOException e) {
+        throw new RuntimeException(
+            new com.google.protobuf.InvalidProtocolBufferException(
+                e.getMessage()).setUnfinishedMessage(this));
+      } finally {
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return com.solvaig.print.Print.internal_static_print_Resolution_descriptor;
+    }
+
+    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return com.solvaig.print.Print.internal_static_print_Resolution_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              com.solvaig.print.Print.Resolution.class, com.solvaig.print.Print.Resolution.Builder.class);
+    }
+
+    public static final int HORIZONTALDPI_FIELD_NUMBER = 1;
+    private int horizontalDpi_;
+    /**
+     * <code>optional int32 horizontalDpi = 1;</code>
+     */
+    public int getHorizontalDpi() {
+      return horizontalDpi_;
+    }
+
+    public static final int VERTICALDPI_FIELD_NUMBER = 2;
+    private int verticalDpi_;
+    /**
+     * <code>optional int32 verticalDpi = 2;</code>
+     */
+    public int getVerticalDpi() {
+      return verticalDpi_;
+    }
+
+    public static final int ISDEFAULT_FIELD_NUMBER = 3;
+    private boolean isDefault_;
+    /**
+     * <code>optional bool isDefault = 3;</code>
+     */
+    public boolean getIsDefault() {
+      return isDefault_;
+    }
+
+    private byte memoizedIsInitialized = -1;
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (horizontalDpi_ != 0) {
+        output.writeInt32(1, horizontalDpi_);
+      }
+      if (verticalDpi_ != 0) {
+        output.writeInt32(2, verticalDpi_);
+      }
+      if (isDefault_ != false) {
+        output.writeBool(3, isDefault_);
+      }
+    }
+
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (horizontalDpi_ != 0) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(1, horizontalDpi_);
+      }
+      if (verticalDpi_ != 0) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(2, verticalDpi_);
+      }
+      if (isDefault_ != false) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBoolSize(3, isDefault_);
+      }
+      memoizedSize = size;
+      return size;
+    }
+
+    private static final long serialVersionUID = 0L;
+    public static com.solvaig.print.Print.Resolution parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.solvaig.print.Print.Resolution parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.solvaig.print.Print.Resolution parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.solvaig.print.Print.Resolution parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.solvaig.print.Print.Resolution parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input);
+    }
+    public static com.solvaig.print.Print.Resolution parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input, extensionRegistry);
+    }
+    public static com.solvaig.print.Print.Resolution parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return PARSER.parseDelimitedFrom(input);
+    }
+    public static com.solvaig.print.Print.Resolution parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return PARSER.parseDelimitedFrom(input, extensionRegistry);
+    }
+    public static com.solvaig.print.Print.Resolution parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input);
+    }
+    public static com.solvaig.print.Print.Resolution parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input, extensionRegistry);
+    }
+
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(com.solvaig.print.Print.Resolution prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code print.Resolution}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessage.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:print.Resolution)
+        com.solvaig.print.Print.ResolutionOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return com.solvaig.print.Print.internal_static_print_Resolution_descriptor;
+      }
+
+      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return com.solvaig.print.Print.internal_static_print_Resolution_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                com.solvaig.print.Print.Resolution.class, com.solvaig.print.Print.Resolution.Builder.class);
+      }
+
+      // Construct using com.solvaig.print.Print.Resolution.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
+        }
+      }
+      public Builder clear() {
+        super.clear();
+        horizontalDpi_ = 0;
+
+        verticalDpi_ = 0;
+
+        isDefault_ = false;
+
+        return this;
+      }
+
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return com.solvaig.print.Print.internal_static_print_Resolution_descriptor;
+      }
+
+      public com.solvaig.print.Print.Resolution getDefaultInstanceForType() {
+        return com.solvaig.print.Print.Resolution.getDefaultInstance();
+      }
+
+      public com.solvaig.print.Print.Resolution build() {
+        com.solvaig.print.Print.Resolution result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      public com.solvaig.print.Print.Resolution buildPartial() {
+        com.solvaig.print.Print.Resolution result = new com.solvaig.print.Print.Resolution(this);
+        result.horizontalDpi_ = horizontalDpi_;
+        result.verticalDpi_ = verticalDpi_;
+        result.isDefault_ = isDefault_;
+        onBuilt();
+        return result;
+      }
+
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof com.solvaig.print.Print.Resolution) {
+          return mergeFrom((com.solvaig.print.Print.Resolution)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(com.solvaig.print.Print.Resolution other) {
+        if (other == com.solvaig.print.Print.Resolution.getDefaultInstance()) return this;
+        if (other.getHorizontalDpi() != 0) {
+          setHorizontalDpi(other.getHorizontalDpi());
+        }
+        if (other.getVerticalDpi() != 0) {
+          setVerticalDpi(other.getVerticalDpi());
+        }
+        if (other.getIsDefault() != false) {
+          setIsDefault(other.getIsDefault());
+        }
+        onChanged();
+        return this;
+      }
+
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        com.solvaig.print.Print.Resolution parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (com.solvaig.print.Print.Resolution) e.getUnfinishedMessage();
+          throw e;
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+
+      private int horizontalDpi_ ;
+      /**
+       * <code>optional int32 horizontalDpi = 1;</code>
+       */
+      public int getHorizontalDpi() {
+        return horizontalDpi_;
+      }
+      /**
+       * <code>optional int32 horizontalDpi = 1;</code>
+       */
+      public Builder setHorizontalDpi(int value) {
+        
+        horizontalDpi_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional int32 horizontalDpi = 1;</code>
+       */
+      public Builder clearHorizontalDpi() {
+        
+        horizontalDpi_ = 0;
+        onChanged();
+        return this;
+      }
+
+      private int verticalDpi_ ;
+      /**
+       * <code>optional int32 verticalDpi = 2;</code>
+       */
+      public int getVerticalDpi() {
+        return verticalDpi_;
+      }
+      /**
+       * <code>optional int32 verticalDpi = 2;</code>
+       */
+      public Builder setVerticalDpi(int value) {
+        
+        verticalDpi_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional int32 verticalDpi = 2;</code>
+       */
+      public Builder clearVerticalDpi() {
+        
+        verticalDpi_ = 0;
+        onChanged();
+        return this;
+      }
+
+      private boolean isDefault_ ;
+      /**
+       * <code>optional bool isDefault = 3;</code>
+       */
+      public boolean getIsDefault() {
+        return isDefault_;
+      }
+      /**
+       * <code>optional bool isDefault = 3;</code>
+       */
+      public Builder setIsDefault(boolean value) {
+        
+        isDefault_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional bool isDefault = 3;</code>
+       */
+      public Builder clearIsDefault() {
+        
+        isDefault_ = false;
+        onChanged();
+        return this;
+      }
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return this;
+      }
+
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return this;
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:print.Resolution)
+    }
+
+    // @@protoc_insertion_point(class_scope:print.Resolution)
+    private static final com.solvaig.print.Print.Resolution DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new com.solvaig.print.Print.Resolution();
+    }
+
+    public static com.solvaig.print.Print.Resolution getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<Resolution>
+        PARSER = new com.google.protobuf.AbstractParser<Resolution>() {
+      public Resolution parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        try {
+          return new Resolution(input, extensionRegistry);
+        } catch (RuntimeException e) {
+          if (e.getCause() instanceof
+              com.google.protobuf.InvalidProtocolBufferException) {
+            throw (com.google.protobuf.InvalidProtocolBufferException)
+                e.getCause();
+          }
+          throw e;
+        }
+      }
+    };
+
+    public static com.google.protobuf.Parser<Resolution> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<Resolution> getParserForType() {
+      return PARSER;
+    }
+
+    public com.solvaig.print.Print.Resolution getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface PrintServOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:print.PrintServ)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>optional string name = 1;</code>
+     */
+    java.lang.String getName();
+    /**
+     * <code>optional string name = 1;</code>
+     */
+    com.google.protobuf.ByteString
+        getNameBytes();
+
+    /**
+     * <code>repeated .print.PageSize pageSize = 2;</code>
+     */
+    java.util.List<com.solvaig.print.Print.PageSize> 
+        getPageSizeList();
+    /**
+     * <code>repeated .print.PageSize pageSize = 2;</code>
+     */
+    com.solvaig.print.Print.PageSize getPageSize(int index);
+    /**
+     * <code>repeated .print.PageSize pageSize = 2;</code>
+     */
+    int getPageSizeCount();
+    /**
+     * <code>repeated .print.PageSize pageSize = 2;</code>
+     */
+    java.util.List<? extends com.solvaig.print.Print.PageSizeOrBuilder> 
+        getPageSizeOrBuilderList();
+    /**
+     * <code>repeated .print.PageSize pageSize = 2;</code>
+     */
+    com.solvaig.print.Print.PageSizeOrBuilder getPageSizeOrBuilder(
+        int index);
+
+    /**
+     * <code>repeated .print.Resolution resolution = 3;</code>
+     */
+    java.util.List<com.solvaig.print.Print.Resolution> 
+        getResolutionList();
+    /**
+     * <code>repeated .print.Resolution resolution = 3;</code>
+     */
+    com.solvaig.print.Print.Resolution getResolution(int index);
+    /**
+     * <code>repeated .print.Resolution resolution = 3;</code>
+     */
+    int getResolutionCount();
+    /**
+     * <code>repeated .print.Resolution resolution = 3;</code>
+     */
+    java.util.List<? extends com.solvaig.print.Print.ResolutionOrBuilder> 
+        getResolutionOrBuilderList();
+    /**
+     * <code>repeated .print.Resolution resolution = 3;</code>
+     */
+    com.solvaig.print.Print.ResolutionOrBuilder getResolutionOrBuilder(
+        int index);
+  }
+  /**
+   * Protobuf type {@code print.PrintServ}
+   */
+  public  static final class PrintServ extends
+      com.google.protobuf.GeneratedMessage implements
+      // @@protoc_insertion_point(message_implements:print.PrintServ)
+      PrintServOrBuilder {
+    // Use PrintServ.newBuilder() to construct.
+    private PrintServ(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
+      super(builder);
+    }
+    private PrintServ() {
+      name_ = "";
+      pageSize_ = java.util.Collections.emptyList();
+      resolution_ = java.util.Collections.emptyList();
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return com.google.protobuf.UnknownFieldSet.getDefaultInstance();
+    }
+    private PrintServ(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry) {
+      this();
+      int mutable_bitField0_ = 0;
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            default: {
+              if (!input.skipField(tag)) {
+                done = true;
+              }
+              break;
+            }
+            case 10: {
+              String s = input.readStringRequireUtf8();
+
+              name_ = s;
+              break;
+            }
+            case 18: {
+              if (!((mutable_bitField0_ & 0x00000002) == 0x00000002)) {
+                pageSize_ = new java.util.ArrayList<com.solvaig.print.Print.PageSize>();
+                mutable_bitField0_ |= 0x00000002;
+              }
+              pageSize_.add(input.readMessage(com.solvaig.print.Print.PageSize.parser(), extensionRegistry));
+              break;
+            }
+            case 26: {
+              if (!((mutable_bitField0_ & 0x00000004) == 0x00000004)) {
+                resolution_ = new java.util.ArrayList<com.solvaig.print.Print.Resolution>();
+                mutable_bitField0_ |= 0x00000004;
+              }
+              resolution_.add(input.readMessage(com.solvaig.print.Print.Resolution.parser(), extensionRegistry));
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw new RuntimeException(e.setUnfinishedMessage(this));
+      } catch (java.io.IOException e) {
+        throw new RuntimeException(
+            new com.google.protobuf.InvalidProtocolBufferException(
+                e.getMessage()).setUnfinishedMessage(this));
+      } finally {
+        if (((mutable_bitField0_ & 0x00000002) == 0x00000002)) {
+          pageSize_ = java.util.Collections.unmodifiableList(pageSize_);
+        }
+        if (((mutable_bitField0_ & 0x00000004) == 0x00000004)) {
+          resolution_ = java.util.Collections.unmodifiableList(resolution_);
+        }
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return com.solvaig.print.Print.internal_static_print_PrintServ_descriptor;
+    }
+
+    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return com.solvaig.print.Print.internal_static_print_PrintServ_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              com.solvaig.print.Print.PrintServ.class, com.solvaig.print.Print.PrintServ.Builder.class);
+    }
+
+    private int bitField0_;
+    public static final int NAME_FIELD_NUMBER = 1;
+    private volatile java.lang.Object name_;
+    /**
+     * <code>optional string name = 1;</code>
+     */
+    public java.lang.String getName() {
+      java.lang.Object ref = name_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        name_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>optional string name = 1;</code>
+     */
+    public com.google.protobuf.ByteString
+        getNameBytes() {
+      java.lang.Object ref = name_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        name_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int PAGESIZE_FIELD_NUMBER = 2;
+    private java.util.List<com.solvaig.print.Print.PageSize> pageSize_;
+    /**
+     * <code>repeated .print.PageSize pageSize = 2;</code>
+     */
+    public java.util.List<com.solvaig.print.Print.PageSize> getPageSizeList() {
+      return pageSize_;
+    }
+    /**
+     * <code>repeated .print.PageSize pageSize = 2;</code>
+     */
+    public java.util.List<? extends com.solvaig.print.Print.PageSizeOrBuilder> 
+        getPageSizeOrBuilderList() {
+      return pageSize_;
+    }
+    /**
+     * <code>repeated .print.PageSize pageSize = 2;</code>
+     */
+    public int getPageSizeCount() {
+      return pageSize_.size();
+    }
+    /**
+     * <code>repeated .print.PageSize pageSize = 2;</code>
+     */
+    public com.solvaig.print.Print.PageSize getPageSize(int index) {
+      return pageSize_.get(index);
+    }
+    /**
+     * <code>repeated .print.PageSize pageSize = 2;</code>
+     */
+    public com.solvaig.print.Print.PageSizeOrBuilder getPageSizeOrBuilder(
+        int index) {
+      return pageSize_.get(index);
+    }
+
+    public static final int RESOLUTION_FIELD_NUMBER = 3;
+    private java.util.List<com.solvaig.print.Print.Resolution> resolution_;
+    /**
+     * <code>repeated .print.Resolution resolution = 3;</code>
+     */
+    public java.util.List<com.solvaig.print.Print.Resolution> getResolutionList() {
+      return resolution_;
+    }
+    /**
+     * <code>repeated .print.Resolution resolution = 3;</code>
+     */
+    public java.util.List<? extends com.solvaig.print.Print.ResolutionOrBuilder> 
+        getResolutionOrBuilderList() {
+      return resolution_;
+    }
+    /**
+     * <code>repeated .print.Resolution resolution = 3;</code>
+     */
+    public int getResolutionCount() {
+      return resolution_.size();
+    }
+    /**
+     * <code>repeated .print.Resolution resolution = 3;</code>
+     */
+    public com.solvaig.print.Print.Resolution getResolution(int index) {
+      return resolution_.get(index);
+    }
+    /**
+     * <code>repeated .print.Resolution resolution = 3;</code>
+     */
+    public com.solvaig.print.Print.ResolutionOrBuilder getResolutionOrBuilder(
+        int index) {
+      return resolution_.get(index);
+    }
+
+    private byte memoizedIsInitialized = -1;
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (!getNameBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessage.writeString(output, 1, name_);
+      }
+      for (int i = 0; i < pageSize_.size(); i++) {
+        output.writeMessage(2, pageSize_.get(i));
+      }
+      for (int i = 0; i < resolution_.size(); i++) {
+        output.writeMessage(3, resolution_.get(i));
+      }
+    }
+
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (!getNameBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessage.computeStringSize(1, name_);
+      }
+      for (int i = 0; i < pageSize_.size(); i++) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(2, pageSize_.get(i));
+      }
+      for (int i = 0; i < resolution_.size(); i++) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(3, resolution_.get(i));
+      }
+      memoizedSize = size;
+      return size;
+    }
+
+    private static final long serialVersionUID = 0L;
+    public static com.solvaig.print.Print.PrintServ parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.solvaig.print.Print.PrintServ parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.solvaig.print.Print.PrintServ parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.solvaig.print.Print.PrintServ parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.solvaig.print.Print.PrintServ parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input);
+    }
+    public static com.solvaig.print.Print.PrintServ parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input, extensionRegistry);
+    }
+    public static com.solvaig.print.Print.PrintServ parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return PARSER.parseDelimitedFrom(input);
+    }
+    public static com.solvaig.print.Print.PrintServ parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return PARSER.parseDelimitedFrom(input, extensionRegistry);
+    }
+    public static com.solvaig.print.Print.PrintServ parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input);
+    }
+    public static com.solvaig.print.Print.PrintServ parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input, extensionRegistry);
+    }
+
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(com.solvaig.print.Print.PrintServ prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code print.PrintServ}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessage.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:print.PrintServ)
+        com.solvaig.print.Print.PrintServOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return com.solvaig.print.Print.internal_static_print_PrintServ_descriptor;
+      }
+
+      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return com.solvaig.print.Print.internal_static_print_PrintServ_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                com.solvaig.print.Print.PrintServ.class, com.solvaig.print.Print.PrintServ.Builder.class);
+      }
+
+      // Construct using com.solvaig.print.Print.PrintServ.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
+          getPageSizeFieldBuilder();
+          getResolutionFieldBuilder();
+        }
+      }
+      public Builder clear() {
+        super.clear();
+        name_ = "";
+
+        if (pageSizeBuilder_ == null) {
+          pageSize_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000002);
+        } else {
+          pageSizeBuilder_.clear();
+        }
+        if (resolutionBuilder_ == null) {
+          resolution_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000004);
+        } else {
+          resolutionBuilder_.clear();
+        }
+        return this;
+      }
+
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return com.solvaig.print.Print.internal_static_print_PrintServ_descriptor;
+      }
+
+      public com.solvaig.print.Print.PrintServ getDefaultInstanceForType() {
+        return com.solvaig.print.Print.PrintServ.getDefaultInstance();
+      }
+
+      public com.solvaig.print.Print.PrintServ build() {
+        com.solvaig.print.Print.PrintServ result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      public com.solvaig.print.Print.PrintServ buildPartial() {
+        com.solvaig.print.Print.PrintServ result = new com.solvaig.print.Print.PrintServ(this);
+        int from_bitField0_ = bitField0_;
+        int to_bitField0_ = 0;
+        result.name_ = name_;
+        if (pageSizeBuilder_ == null) {
+          if (((bitField0_ & 0x00000002) == 0x00000002)) {
+            pageSize_ = java.util.Collections.unmodifiableList(pageSize_);
+            bitField0_ = (bitField0_ & ~0x00000002);
+          }
+          result.pageSize_ = pageSize_;
+        } else {
+          result.pageSize_ = pageSizeBuilder_.build();
+        }
+        if (resolutionBuilder_ == null) {
+          if (((bitField0_ & 0x00000004) == 0x00000004)) {
+            resolution_ = java.util.Collections.unmodifiableList(resolution_);
+            bitField0_ = (bitField0_ & ~0x00000004);
+          }
+          result.resolution_ = resolution_;
+        } else {
+          result.resolution_ = resolutionBuilder_.build();
+        }
+        result.bitField0_ = to_bitField0_;
+        onBuilt();
+        return result;
+      }
+
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof com.solvaig.print.Print.PrintServ) {
+          return mergeFrom((com.solvaig.print.Print.PrintServ)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(com.solvaig.print.Print.PrintServ other) {
+        if (other == com.solvaig.print.Print.PrintServ.getDefaultInstance()) return this;
+        if (!other.getName().isEmpty()) {
+          name_ = other.name_;
+          onChanged();
+        }
+        if (pageSizeBuilder_ == null) {
+          if (!other.pageSize_.isEmpty()) {
+            if (pageSize_.isEmpty()) {
+              pageSize_ = other.pageSize_;
+              bitField0_ = (bitField0_ & ~0x00000002);
+            } else {
+              ensurePageSizeIsMutable();
+              pageSize_.addAll(other.pageSize_);
+            }
+            onChanged();
+          }
+        } else {
+          if (!other.pageSize_.isEmpty()) {
+            if (pageSizeBuilder_.isEmpty()) {
+              pageSizeBuilder_.dispose();
+              pageSizeBuilder_ = null;
+              pageSize_ = other.pageSize_;
+              bitField0_ = (bitField0_ & ~0x00000002);
+              pageSizeBuilder_ = 
+                com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders ?
+                   getPageSizeFieldBuilder() : null;
+            } else {
+              pageSizeBuilder_.addAllMessages(other.pageSize_);
+            }
+          }
+        }
+        if (resolutionBuilder_ == null) {
+          if (!other.resolution_.isEmpty()) {
+            if (resolution_.isEmpty()) {
+              resolution_ = other.resolution_;
+              bitField0_ = (bitField0_ & ~0x00000004);
+            } else {
+              ensureResolutionIsMutable();
+              resolution_.addAll(other.resolution_);
+            }
+            onChanged();
+          }
+        } else {
+          if (!other.resolution_.isEmpty()) {
+            if (resolutionBuilder_.isEmpty()) {
+              resolutionBuilder_.dispose();
+              resolutionBuilder_ = null;
+              resolution_ = other.resolution_;
+              bitField0_ = (bitField0_ & ~0x00000004);
+              resolutionBuilder_ = 
+                com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders ?
+                   getResolutionFieldBuilder() : null;
+            } else {
+              resolutionBuilder_.addAllMessages(other.resolution_);
+            }
+          }
+        }
+        onChanged();
+        return this;
+      }
+
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        com.solvaig.print.Print.PrintServ parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (com.solvaig.print.Print.PrintServ) e.getUnfinishedMessage();
+          throw e;
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+      private int bitField0_;
+
+      private java.lang.Object name_ = "";
+      /**
+       * <code>optional string name = 1;</code>
+       */
+      public java.lang.String getName() {
+        java.lang.Object ref = name_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          name_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>optional string name = 1;</code>
+       */
+      public com.google.protobuf.ByteString
+          getNameBytes() {
+        java.lang.Object ref = name_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          name_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>optional string name = 1;</code>
+       */
+      public Builder setName(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        name_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional string name = 1;</code>
+       */
+      public Builder clearName() {
+        
+        name_ = getDefaultInstance().getName();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional string name = 1;</code>
+       */
+      public Builder setNameBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        name_ = value;
+        onChanged();
+        return this;
+      }
+
+      private java.util.List<com.solvaig.print.Print.PageSize> pageSize_ =
+        java.util.Collections.emptyList();
+      private void ensurePageSizeIsMutable() {
+        if (!((bitField0_ & 0x00000002) == 0x00000002)) {
+          pageSize_ = new java.util.ArrayList<com.solvaig.print.Print.PageSize>(pageSize_);
+          bitField0_ |= 0x00000002;
+         }
+      }
+
+      private com.google.protobuf.RepeatedFieldBuilder<
+          com.solvaig.print.Print.PageSize, com.solvaig.print.Print.PageSize.Builder, com.solvaig.print.Print.PageSizeOrBuilder> pageSizeBuilder_;
+
+      /**
+       * <code>repeated .print.PageSize pageSize = 2;</code>
+       */
+      public java.util.List<com.solvaig.print.Print.PageSize> getPageSizeList() {
+        if (pageSizeBuilder_ == null) {
+          return java.util.Collections.unmodifiableList(pageSize_);
+        } else {
+          return pageSizeBuilder_.getMessageList();
+        }
+      }
+      /**
+       * <code>repeated .print.PageSize pageSize = 2;</code>
+       */
+      public int getPageSizeCount() {
+        if (pageSizeBuilder_ == null) {
+          return pageSize_.size();
+        } else {
+          return pageSizeBuilder_.getCount();
+        }
+      }
+      /**
+       * <code>repeated .print.PageSize pageSize = 2;</code>
+       */
+      public com.solvaig.print.Print.PageSize getPageSize(int index) {
+        if (pageSizeBuilder_ == null) {
+          return pageSize_.get(index);
+        } else {
+          return pageSizeBuilder_.getMessage(index);
+        }
+      }
+      /**
+       * <code>repeated .print.PageSize pageSize = 2;</code>
+       */
+      public Builder setPageSize(
+          int index, com.solvaig.print.Print.PageSize value) {
+        if (pageSizeBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensurePageSizeIsMutable();
+          pageSize_.set(index, value);
+          onChanged();
+        } else {
+          pageSizeBuilder_.setMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .print.PageSize pageSize = 2;</code>
+       */
+      public Builder setPageSize(
+          int index, com.solvaig.print.Print.PageSize.Builder builderForValue) {
+        if (pageSizeBuilder_ == null) {
+          ensurePageSizeIsMutable();
+          pageSize_.set(index, builderForValue.build());
+          onChanged();
+        } else {
+          pageSizeBuilder_.setMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .print.PageSize pageSize = 2;</code>
+       */
+      public Builder addPageSize(com.solvaig.print.Print.PageSize value) {
+        if (pageSizeBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensurePageSizeIsMutable();
+          pageSize_.add(value);
+          onChanged();
+        } else {
+          pageSizeBuilder_.addMessage(value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .print.PageSize pageSize = 2;</code>
+       */
+      public Builder addPageSize(
+          int index, com.solvaig.print.Print.PageSize value) {
+        if (pageSizeBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensurePageSizeIsMutable();
+          pageSize_.add(index, value);
+          onChanged();
+        } else {
+          pageSizeBuilder_.addMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .print.PageSize pageSize = 2;</code>
+       */
+      public Builder addPageSize(
+          com.solvaig.print.Print.PageSize.Builder builderForValue) {
+        if (pageSizeBuilder_ == null) {
+          ensurePageSizeIsMutable();
+          pageSize_.add(builderForValue.build());
+          onChanged();
+        } else {
+          pageSizeBuilder_.addMessage(builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .print.PageSize pageSize = 2;</code>
+       */
+      public Builder addPageSize(
+          int index, com.solvaig.print.Print.PageSize.Builder builderForValue) {
+        if (pageSizeBuilder_ == null) {
+          ensurePageSizeIsMutable();
+          pageSize_.add(index, builderForValue.build());
+          onChanged();
+        } else {
+          pageSizeBuilder_.addMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .print.PageSize pageSize = 2;</code>
+       */
+      public Builder addAllPageSize(
+          java.lang.Iterable<? extends com.solvaig.print.Print.PageSize> values) {
+        if (pageSizeBuilder_ == null) {
+          ensurePageSizeIsMutable();
+          com.google.protobuf.AbstractMessageLite.Builder.addAll(
+              values, pageSize_);
+          onChanged();
+        } else {
+          pageSizeBuilder_.addAllMessages(values);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .print.PageSize pageSize = 2;</code>
+       */
+      public Builder clearPageSize() {
+        if (pageSizeBuilder_ == null) {
+          pageSize_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000002);
+          onChanged();
+        } else {
+          pageSizeBuilder_.clear();
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .print.PageSize pageSize = 2;</code>
+       */
+      public Builder removePageSize(int index) {
+        if (pageSizeBuilder_ == null) {
+          ensurePageSizeIsMutable();
+          pageSize_.remove(index);
+          onChanged();
+        } else {
+          pageSizeBuilder_.remove(index);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .print.PageSize pageSize = 2;</code>
+       */
+      public com.solvaig.print.Print.PageSize.Builder getPageSizeBuilder(
+          int index) {
+        return getPageSizeFieldBuilder().getBuilder(index);
+      }
+      /**
+       * <code>repeated .print.PageSize pageSize = 2;</code>
+       */
+      public com.solvaig.print.Print.PageSizeOrBuilder getPageSizeOrBuilder(
+          int index) {
+        if (pageSizeBuilder_ == null) {
+          return pageSize_.get(index);  } else {
+          return pageSizeBuilder_.getMessageOrBuilder(index);
+        }
+      }
+      /**
+       * <code>repeated .print.PageSize pageSize = 2;</code>
+       */
+      public java.util.List<? extends com.solvaig.print.Print.PageSizeOrBuilder> 
+           getPageSizeOrBuilderList() {
+        if (pageSizeBuilder_ != null) {
+          return pageSizeBuilder_.getMessageOrBuilderList();
+        } else {
+          return java.util.Collections.unmodifiableList(pageSize_);
+        }
+      }
+      /**
+       * <code>repeated .print.PageSize pageSize = 2;</code>
+       */
+      public com.solvaig.print.Print.PageSize.Builder addPageSizeBuilder() {
+        return getPageSizeFieldBuilder().addBuilder(
+            com.solvaig.print.Print.PageSize.getDefaultInstance());
+      }
+      /**
+       * <code>repeated .print.PageSize pageSize = 2;</code>
+       */
+      public com.solvaig.print.Print.PageSize.Builder addPageSizeBuilder(
+          int index) {
+        return getPageSizeFieldBuilder().addBuilder(
+            index, com.solvaig.print.Print.PageSize.getDefaultInstance());
+      }
+      /**
+       * <code>repeated .print.PageSize pageSize = 2;</code>
+       */
+      public java.util.List<com.solvaig.print.Print.PageSize.Builder> 
+           getPageSizeBuilderList() {
+        return getPageSizeFieldBuilder().getBuilderList();
+      }
+      private com.google.protobuf.RepeatedFieldBuilder<
+          com.solvaig.print.Print.PageSize, com.solvaig.print.Print.PageSize.Builder, com.solvaig.print.Print.PageSizeOrBuilder> 
+          getPageSizeFieldBuilder() {
+        if (pageSizeBuilder_ == null) {
+          pageSizeBuilder_ = new com.google.protobuf.RepeatedFieldBuilder<
+              com.solvaig.print.Print.PageSize, com.solvaig.print.Print.PageSize.Builder, com.solvaig.print.Print.PageSizeOrBuilder>(
+                  pageSize_,
+                  ((bitField0_ & 0x00000002) == 0x00000002),
+                  getParentForChildren(),
+                  isClean());
+          pageSize_ = null;
+        }
+        return pageSizeBuilder_;
+      }
+
+      private java.util.List<com.solvaig.print.Print.Resolution> resolution_ =
+        java.util.Collections.emptyList();
+      private void ensureResolutionIsMutable() {
+        if (!((bitField0_ & 0x00000004) == 0x00000004)) {
+          resolution_ = new java.util.ArrayList<com.solvaig.print.Print.Resolution>(resolution_);
+          bitField0_ |= 0x00000004;
+         }
+      }
+
+      private com.google.protobuf.RepeatedFieldBuilder<
+          com.solvaig.print.Print.Resolution, com.solvaig.print.Print.Resolution.Builder, com.solvaig.print.Print.ResolutionOrBuilder> resolutionBuilder_;
+
+      /**
+       * <code>repeated .print.Resolution resolution = 3;</code>
+       */
+      public java.util.List<com.solvaig.print.Print.Resolution> getResolutionList() {
+        if (resolutionBuilder_ == null) {
+          return java.util.Collections.unmodifiableList(resolution_);
+        } else {
+          return resolutionBuilder_.getMessageList();
+        }
+      }
+      /**
+       * <code>repeated .print.Resolution resolution = 3;</code>
+       */
+      public int getResolutionCount() {
+        if (resolutionBuilder_ == null) {
+          return resolution_.size();
+        } else {
+          return resolutionBuilder_.getCount();
+        }
+      }
+      /**
+       * <code>repeated .print.Resolution resolution = 3;</code>
+       */
+      public com.solvaig.print.Print.Resolution getResolution(int index) {
+        if (resolutionBuilder_ == null) {
+          return resolution_.get(index);
+        } else {
+          return resolutionBuilder_.getMessage(index);
+        }
+      }
+      /**
+       * <code>repeated .print.Resolution resolution = 3;</code>
+       */
+      public Builder setResolution(
+          int index, com.solvaig.print.Print.Resolution value) {
+        if (resolutionBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureResolutionIsMutable();
+          resolution_.set(index, value);
+          onChanged();
+        } else {
+          resolutionBuilder_.setMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .print.Resolution resolution = 3;</code>
+       */
+      public Builder setResolution(
+          int index, com.solvaig.print.Print.Resolution.Builder builderForValue) {
+        if (resolutionBuilder_ == null) {
+          ensureResolutionIsMutable();
+          resolution_.set(index, builderForValue.build());
+          onChanged();
+        } else {
+          resolutionBuilder_.setMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .print.Resolution resolution = 3;</code>
+       */
+      public Builder addResolution(com.solvaig.print.Print.Resolution value) {
+        if (resolutionBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureResolutionIsMutable();
+          resolution_.add(value);
+          onChanged();
+        } else {
+          resolutionBuilder_.addMessage(value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .print.Resolution resolution = 3;</code>
+       */
+      public Builder addResolution(
+          int index, com.solvaig.print.Print.Resolution value) {
+        if (resolutionBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureResolutionIsMutable();
+          resolution_.add(index, value);
+          onChanged();
+        } else {
+          resolutionBuilder_.addMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .print.Resolution resolution = 3;</code>
+       */
+      public Builder addResolution(
+          com.solvaig.print.Print.Resolution.Builder builderForValue) {
+        if (resolutionBuilder_ == null) {
+          ensureResolutionIsMutable();
+          resolution_.add(builderForValue.build());
+          onChanged();
+        } else {
+          resolutionBuilder_.addMessage(builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .print.Resolution resolution = 3;</code>
+       */
+      public Builder addResolution(
+          int index, com.solvaig.print.Print.Resolution.Builder builderForValue) {
+        if (resolutionBuilder_ == null) {
+          ensureResolutionIsMutable();
+          resolution_.add(index, builderForValue.build());
+          onChanged();
+        } else {
+          resolutionBuilder_.addMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .print.Resolution resolution = 3;</code>
+       */
+      public Builder addAllResolution(
+          java.lang.Iterable<? extends com.solvaig.print.Print.Resolution> values) {
+        if (resolutionBuilder_ == null) {
+          ensureResolutionIsMutable();
+          com.google.protobuf.AbstractMessageLite.Builder.addAll(
+              values, resolution_);
+          onChanged();
+        } else {
+          resolutionBuilder_.addAllMessages(values);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .print.Resolution resolution = 3;</code>
+       */
+      public Builder clearResolution() {
+        if (resolutionBuilder_ == null) {
+          resolution_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000004);
+          onChanged();
+        } else {
+          resolutionBuilder_.clear();
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .print.Resolution resolution = 3;</code>
+       */
+      public Builder removeResolution(int index) {
+        if (resolutionBuilder_ == null) {
+          ensureResolutionIsMutable();
+          resolution_.remove(index);
+          onChanged();
+        } else {
+          resolutionBuilder_.remove(index);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .print.Resolution resolution = 3;</code>
+       */
+      public com.solvaig.print.Print.Resolution.Builder getResolutionBuilder(
+          int index) {
+        return getResolutionFieldBuilder().getBuilder(index);
+      }
+      /**
+       * <code>repeated .print.Resolution resolution = 3;</code>
+       */
+      public com.solvaig.print.Print.ResolutionOrBuilder getResolutionOrBuilder(
+          int index) {
+        if (resolutionBuilder_ == null) {
+          return resolution_.get(index);  } else {
+          return resolutionBuilder_.getMessageOrBuilder(index);
+        }
+      }
+      /**
+       * <code>repeated .print.Resolution resolution = 3;</code>
+       */
+      public java.util.List<? extends com.solvaig.print.Print.ResolutionOrBuilder> 
+           getResolutionOrBuilderList() {
+        if (resolutionBuilder_ != null) {
+          return resolutionBuilder_.getMessageOrBuilderList();
+        } else {
+          return java.util.Collections.unmodifiableList(resolution_);
+        }
+      }
+      /**
+       * <code>repeated .print.Resolution resolution = 3;</code>
+       */
+      public com.solvaig.print.Print.Resolution.Builder addResolutionBuilder() {
+        return getResolutionFieldBuilder().addBuilder(
+            com.solvaig.print.Print.Resolution.getDefaultInstance());
+      }
+      /**
+       * <code>repeated .print.Resolution resolution = 3;</code>
+       */
+      public com.solvaig.print.Print.Resolution.Builder addResolutionBuilder(
+          int index) {
+        return getResolutionFieldBuilder().addBuilder(
+            index, com.solvaig.print.Print.Resolution.getDefaultInstance());
+      }
+      /**
+       * <code>repeated .print.Resolution resolution = 3;</code>
+       */
+      public java.util.List<com.solvaig.print.Print.Resolution.Builder> 
+           getResolutionBuilderList() {
+        return getResolutionFieldBuilder().getBuilderList();
+      }
+      private com.google.protobuf.RepeatedFieldBuilder<
+          com.solvaig.print.Print.Resolution, com.solvaig.print.Print.Resolution.Builder, com.solvaig.print.Print.ResolutionOrBuilder> 
+          getResolutionFieldBuilder() {
+        if (resolutionBuilder_ == null) {
+          resolutionBuilder_ = new com.google.protobuf.RepeatedFieldBuilder<
+              com.solvaig.print.Print.Resolution, com.solvaig.print.Print.Resolution.Builder, com.solvaig.print.Print.ResolutionOrBuilder>(
+                  resolution_,
+                  ((bitField0_ & 0x00000004) == 0x00000004),
+                  getParentForChildren(),
+                  isClean());
+          resolution_ = null;
+        }
+        return resolutionBuilder_;
+      }
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return this;
+      }
+
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return this;
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:print.PrintServ)
+    }
+
+    // @@protoc_insertion_point(class_scope:print.PrintServ)
+    private static final com.solvaig.print.Print.PrintServ DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new com.solvaig.print.Print.PrintServ();
+    }
+
+    public static com.solvaig.print.Print.PrintServ getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<PrintServ>
+        PARSER = new com.google.protobuf.AbstractParser<PrintServ>() {
+      public PrintServ parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        try {
+          return new PrintServ(input, extensionRegistry);
+        } catch (RuntimeException e) {
+          if (e.getCause() instanceof
+              com.google.protobuf.InvalidProtocolBufferException) {
+            throw (com.google.protobuf.InvalidProtocolBufferException)
+                e.getCause();
+          }
+          throw e;
+        }
+      }
+    };
+
+    public static com.google.protobuf.Parser<PrintServ> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<PrintServ> getParserForType() {
+      return PARSER;
+    }
+
+    public com.solvaig.print.Print.PrintServ getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
   public interface PrintServicesOrBuilder extends
       // @@protoc_insertion_point(interface_extends:print.PrintServices)
       com.google.protobuf.MessageOrBuilder {
@@ -3296,6 +5589,30 @@ public final class Print {
      */
     com.google.protobuf.ByteString
         getNameBytes(int index);
+
+    /**
+     * <code>repeated .print.PrintServ printService = 2;</code>
+     */
+    java.util.List<com.solvaig.print.Print.PrintServ> 
+        getPrintServiceList();
+    /**
+     * <code>repeated .print.PrintServ printService = 2;</code>
+     */
+    com.solvaig.print.Print.PrintServ getPrintService(int index);
+    /**
+     * <code>repeated .print.PrintServ printService = 2;</code>
+     */
+    int getPrintServiceCount();
+    /**
+     * <code>repeated .print.PrintServ printService = 2;</code>
+     */
+    java.util.List<? extends com.solvaig.print.Print.PrintServOrBuilder> 
+        getPrintServiceOrBuilderList();
+    /**
+     * <code>repeated .print.PrintServ printService = 2;</code>
+     */
+    com.solvaig.print.Print.PrintServOrBuilder getPrintServiceOrBuilder(
+        int index);
   }
   /**
    * Protobuf type {@code print.PrintServices}
@@ -3310,6 +5627,7 @@ public final class Print {
     }
     private PrintServices() {
       name_ = com.google.protobuf.LazyStringArrayList.EMPTY;
+      printService_ = java.util.Collections.emptyList();
     }
 
     @java.lang.Override
@@ -3345,6 +5663,14 @@ public final class Print {
               name_.add(s);
               break;
             }
+            case 18: {
+              if (!((mutable_bitField0_ & 0x00000002) == 0x00000002)) {
+                printService_ = new java.util.ArrayList<com.solvaig.print.Print.PrintServ>();
+                mutable_bitField0_ |= 0x00000002;
+              }
+              printService_.add(input.readMessage(com.solvaig.print.Print.PrintServ.parser(), extensionRegistry));
+              break;
+            }
           }
         }
       } catch (com.google.protobuf.InvalidProtocolBufferException e) {
@@ -3356,6 +5682,9 @@ public final class Print {
       } finally {
         if (((mutable_bitField0_ & 0x00000001) == 0x00000001)) {
           name_ = name_.getUnmodifiableView();
+        }
+        if (((mutable_bitField0_ & 0x00000002) == 0x00000002)) {
+          printService_ = java.util.Collections.unmodifiableList(printService_);
         }
         makeExtensionsImmutable();
       }
@@ -3401,6 +5730,41 @@ public final class Print {
       return name_.getByteString(index);
     }
 
+    public static final int PRINTSERVICE_FIELD_NUMBER = 2;
+    private java.util.List<com.solvaig.print.Print.PrintServ> printService_;
+    /**
+     * <code>repeated .print.PrintServ printService = 2;</code>
+     */
+    public java.util.List<com.solvaig.print.Print.PrintServ> getPrintServiceList() {
+      return printService_;
+    }
+    /**
+     * <code>repeated .print.PrintServ printService = 2;</code>
+     */
+    public java.util.List<? extends com.solvaig.print.Print.PrintServOrBuilder> 
+        getPrintServiceOrBuilderList() {
+      return printService_;
+    }
+    /**
+     * <code>repeated .print.PrintServ printService = 2;</code>
+     */
+    public int getPrintServiceCount() {
+      return printService_.size();
+    }
+    /**
+     * <code>repeated .print.PrintServ printService = 2;</code>
+     */
+    public com.solvaig.print.Print.PrintServ getPrintService(int index) {
+      return printService_.get(index);
+    }
+    /**
+     * <code>repeated .print.PrintServ printService = 2;</code>
+     */
+    public com.solvaig.print.Print.PrintServOrBuilder getPrintServiceOrBuilder(
+        int index) {
+      return printService_.get(index);
+    }
+
     private byte memoizedIsInitialized = -1;
     public final boolean isInitialized() {
       byte isInitialized = memoizedIsInitialized;
@@ -3416,6 +5780,9 @@ public final class Print {
       for (int i = 0; i < name_.size(); i++) {
         com.google.protobuf.GeneratedMessage.writeString(output, 1, name_.getRaw(i));
       }
+      for (int i = 0; i < printService_.size(); i++) {
+        output.writeMessage(2, printService_.get(i));
+      }
     }
 
     public int getSerializedSize() {
@@ -3430,6 +5797,10 @@ public final class Print {
         }
         size += dataSize;
         size += 1 * getNameList().size();
+      }
+      for (int i = 0; i < printService_.size(); i++) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(2, printService_.get(i));
       }
       memoizedSize = size;
       return size;
@@ -3538,12 +5909,19 @@ public final class Print {
       }
       private void maybeForceBuilderInitialization() {
         if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
+          getPrintServiceFieldBuilder();
         }
       }
       public Builder clear() {
         super.clear();
         name_ = com.google.protobuf.LazyStringArrayList.EMPTY;
         bitField0_ = (bitField0_ & ~0x00000001);
+        if (printServiceBuilder_ == null) {
+          printService_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000002);
+        } else {
+          printServiceBuilder_.clear();
+        }
         return this;
       }
 
@@ -3572,6 +5950,15 @@ public final class Print {
           bitField0_ = (bitField0_ & ~0x00000001);
         }
         result.name_ = name_;
+        if (printServiceBuilder_ == null) {
+          if (((bitField0_ & 0x00000002) == 0x00000002)) {
+            printService_ = java.util.Collections.unmodifiableList(printService_);
+            bitField0_ = (bitField0_ & ~0x00000002);
+          }
+          result.printService_ = printService_;
+        } else {
+          result.printService_ = printServiceBuilder_.build();
+        }
         onBuilt();
         return result;
       }
@@ -3596,6 +5983,32 @@ public final class Print {
             name_.addAll(other.name_);
           }
           onChanged();
+        }
+        if (printServiceBuilder_ == null) {
+          if (!other.printService_.isEmpty()) {
+            if (printService_.isEmpty()) {
+              printService_ = other.printService_;
+              bitField0_ = (bitField0_ & ~0x00000002);
+            } else {
+              ensurePrintServiceIsMutable();
+              printService_.addAll(other.printService_);
+            }
+            onChanged();
+          }
+        } else {
+          if (!other.printService_.isEmpty()) {
+            if (printServiceBuilder_.isEmpty()) {
+              printServiceBuilder_.dispose();
+              printServiceBuilder_ = null;
+              printService_ = other.printService_;
+              bitField0_ = (bitField0_ & ~0x00000002);
+              printServiceBuilder_ = 
+                com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders ?
+                   getPrintServiceFieldBuilder() : null;
+            } else {
+              printServiceBuilder_.addAllMessages(other.printService_);
+            }
+          }
         }
         onChanged();
         return this;
@@ -3717,6 +6130,246 @@ public final class Print {
         onChanged();
         return this;
       }
+
+      private java.util.List<com.solvaig.print.Print.PrintServ> printService_ =
+        java.util.Collections.emptyList();
+      private void ensurePrintServiceIsMutable() {
+        if (!((bitField0_ & 0x00000002) == 0x00000002)) {
+          printService_ = new java.util.ArrayList<com.solvaig.print.Print.PrintServ>(printService_);
+          bitField0_ |= 0x00000002;
+         }
+      }
+
+      private com.google.protobuf.RepeatedFieldBuilder<
+          com.solvaig.print.Print.PrintServ, com.solvaig.print.Print.PrintServ.Builder, com.solvaig.print.Print.PrintServOrBuilder> printServiceBuilder_;
+
+      /**
+       * <code>repeated .print.PrintServ printService = 2;</code>
+       */
+      public java.util.List<com.solvaig.print.Print.PrintServ> getPrintServiceList() {
+        if (printServiceBuilder_ == null) {
+          return java.util.Collections.unmodifiableList(printService_);
+        } else {
+          return printServiceBuilder_.getMessageList();
+        }
+      }
+      /**
+       * <code>repeated .print.PrintServ printService = 2;</code>
+       */
+      public int getPrintServiceCount() {
+        if (printServiceBuilder_ == null) {
+          return printService_.size();
+        } else {
+          return printServiceBuilder_.getCount();
+        }
+      }
+      /**
+       * <code>repeated .print.PrintServ printService = 2;</code>
+       */
+      public com.solvaig.print.Print.PrintServ getPrintService(int index) {
+        if (printServiceBuilder_ == null) {
+          return printService_.get(index);
+        } else {
+          return printServiceBuilder_.getMessage(index);
+        }
+      }
+      /**
+       * <code>repeated .print.PrintServ printService = 2;</code>
+       */
+      public Builder setPrintService(
+          int index, com.solvaig.print.Print.PrintServ value) {
+        if (printServiceBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensurePrintServiceIsMutable();
+          printService_.set(index, value);
+          onChanged();
+        } else {
+          printServiceBuilder_.setMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .print.PrintServ printService = 2;</code>
+       */
+      public Builder setPrintService(
+          int index, com.solvaig.print.Print.PrintServ.Builder builderForValue) {
+        if (printServiceBuilder_ == null) {
+          ensurePrintServiceIsMutable();
+          printService_.set(index, builderForValue.build());
+          onChanged();
+        } else {
+          printServiceBuilder_.setMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .print.PrintServ printService = 2;</code>
+       */
+      public Builder addPrintService(com.solvaig.print.Print.PrintServ value) {
+        if (printServiceBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensurePrintServiceIsMutable();
+          printService_.add(value);
+          onChanged();
+        } else {
+          printServiceBuilder_.addMessage(value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .print.PrintServ printService = 2;</code>
+       */
+      public Builder addPrintService(
+          int index, com.solvaig.print.Print.PrintServ value) {
+        if (printServiceBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensurePrintServiceIsMutable();
+          printService_.add(index, value);
+          onChanged();
+        } else {
+          printServiceBuilder_.addMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .print.PrintServ printService = 2;</code>
+       */
+      public Builder addPrintService(
+          com.solvaig.print.Print.PrintServ.Builder builderForValue) {
+        if (printServiceBuilder_ == null) {
+          ensurePrintServiceIsMutable();
+          printService_.add(builderForValue.build());
+          onChanged();
+        } else {
+          printServiceBuilder_.addMessage(builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .print.PrintServ printService = 2;</code>
+       */
+      public Builder addPrintService(
+          int index, com.solvaig.print.Print.PrintServ.Builder builderForValue) {
+        if (printServiceBuilder_ == null) {
+          ensurePrintServiceIsMutable();
+          printService_.add(index, builderForValue.build());
+          onChanged();
+        } else {
+          printServiceBuilder_.addMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .print.PrintServ printService = 2;</code>
+       */
+      public Builder addAllPrintService(
+          java.lang.Iterable<? extends com.solvaig.print.Print.PrintServ> values) {
+        if (printServiceBuilder_ == null) {
+          ensurePrintServiceIsMutable();
+          com.google.protobuf.AbstractMessageLite.Builder.addAll(
+              values, printService_);
+          onChanged();
+        } else {
+          printServiceBuilder_.addAllMessages(values);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .print.PrintServ printService = 2;</code>
+       */
+      public Builder clearPrintService() {
+        if (printServiceBuilder_ == null) {
+          printService_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000002);
+          onChanged();
+        } else {
+          printServiceBuilder_.clear();
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .print.PrintServ printService = 2;</code>
+       */
+      public Builder removePrintService(int index) {
+        if (printServiceBuilder_ == null) {
+          ensurePrintServiceIsMutable();
+          printService_.remove(index);
+          onChanged();
+        } else {
+          printServiceBuilder_.remove(index);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .print.PrintServ printService = 2;</code>
+       */
+      public com.solvaig.print.Print.PrintServ.Builder getPrintServiceBuilder(
+          int index) {
+        return getPrintServiceFieldBuilder().getBuilder(index);
+      }
+      /**
+       * <code>repeated .print.PrintServ printService = 2;</code>
+       */
+      public com.solvaig.print.Print.PrintServOrBuilder getPrintServiceOrBuilder(
+          int index) {
+        if (printServiceBuilder_ == null) {
+          return printService_.get(index);  } else {
+          return printServiceBuilder_.getMessageOrBuilder(index);
+        }
+      }
+      /**
+       * <code>repeated .print.PrintServ printService = 2;</code>
+       */
+      public java.util.List<? extends com.solvaig.print.Print.PrintServOrBuilder> 
+           getPrintServiceOrBuilderList() {
+        if (printServiceBuilder_ != null) {
+          return printServiceBuilder_.getMessageOrBuilderList();
+        } else {
+          return java.util.Collections.unmodifiableList(printService_);
+        }
+      }
+      /**
+       * <code>repeated .print.PrintServ printService = 2;</code>
+       */
+      public com.solvaig.print.Print.PrintServ.Builder addPrintServiceBuilder() {
+        return getPrintServiceFieldBuilder().addBuilder(
+            com.solvaig.print.Print.PrintServ.getDefaultInstance());
+      }
+      /**
+       * <code>repeated .print.PrintServ printService = 2;</code>
+       */
+      public com.solvaig.print.Print.PrintServ.Builder addPrintServiceBuilder(
+          int index) {
+        return getPrintServiceFieldBuilder().addBuilder(
+            index, com.solvaig.print.Print.PrintServ.getDefaultInstance());
+      }
+      /**
+       * <code>repeated .print.PrintServ printService = 2;</code>
+       */
+      public java.util.List<com.solvaig.print.Print.PrintServ.Builder> 
+           getPrintServiceBuilderList() {
+        return getPrintServiceFieldBuilder().getBuilderList();
+      }
+      private com.google.protobuf.RepeatedFieldBuilder<
+          com.solvaig.print.Print.PrintServ, com.solvaig.print.Print.PrintServ.Builder, com.solvaig.print.Print.PrintServOrBuilder> 
+          getPrintServiceFieldBuilder() {
+        if (printServiceBuilder_ == null) {
+          printServiceBuilder_ = new com.google.protobuf.RepeatedFieldBuilder<
+              com.solvaig.print.Print.PrintServ, com.solvaig.print.Print.PrintServ.Builder, com.solvaig.print.Print.PrintServOrBuilder>(
+                  printService_,
+                  ((bitField0_ & 0x00000002) == 0x00000002),
+                  getParentForChildren(),
+                  isClean());
+          printService_ = null;
+        }
+        return printServiceBuilder_;
+      }
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
         return this;
@@ -3801,6 +6454,21 @@ public final class Print {
     com.google.protobuf.GeneratedMessage.FieldAccessorTable
       internal_static_print_Empty_fieldAccessorTable;
   private static com.google.protobuf.Descriptors.Descriptor
+    internal_static_print_PageSize_descriptor;
+  private static
+    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      internal_static_print_PageSize_fieldAccessorTable;
+  private static com.google.protobuf.Descriptors.Descriptor
+    internal_static_print_Resolution_descriptor;
+  private static
+    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      internal_static_print_Resolution_fieldAccessorTable;
+  private static com.google.protobuf.Descriptors.Descriptor
+    internal_static_print_PrintServ_descriptor;
+  private static
+    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      internal_static_print_PrintServ_fieldAccessorTable;
+  private static com.google.protobuf.Descriptors.Descriptor
     internal_static_print_PrintServices_descriptor;
   private static
     com.google.protobuf.GeneratedMessage.FieldAccessorTable
@@ -3825,12 +6493,19 @@ public final class Print {
       "pies\030\t \001(\005\022\r\n\005label\030\n \001(\t\022\024\n\014creationTim" +
       "e\030\013 \001(\003\"/\n\tPageRange\022\021\n\tstartPage\030\001 \001(\005\022",
       "\017\n\007endPage\030\002 \001(\005\"\037\n\rPrintResponse\022\016\n\006res" +
-      "ult\030\001 \001(\005\"\007\n\005Empty\"\035\n\rPrintServices\022\014\n\004n" +
-      "ame\030\001 \003(\t2\206\001\n\022ServerPrintService\0228\n\020GetP" +
-      "rintServices\022\014.print.Empty\032\024.print.Print" +
-      "Services\"\000\0226\n\005Print\022\023.print.PrintContent" +
-      "\032\024.print.PrintResponse\"\000(\001B\023\n\021com.solvai" +
-      "g.printb\006proto3"
+      "ult\030\001 \001(\005\"\007\n\005Empty\"S\n\010PageSize\022\r\n\005label\030" +
+      "\001 \001(\t\022\021\n\twidthMils\030\002 \001(\005\022\022\n\nheightMils\030\003" +
+      " \001(\005\022\021\n\tisDefault\030\004 \001(\010\"K\n\nResolution\022\025\n" +
+      "\rhorizontalDpi\030\001 \001(\005\022\023\n\013verticalDpi\030\002 \001(" +
+      "\005\022\021\n\tisDefault\030\003 \001(\010\"c\n\tPrintServ\022\014\n\004nam" +
+      "e\030\001 \001(\t\022!\n\010pageSize\030\002 \003(\0132\017.print.PageSi" +
+      "ze\022%\n\nresolution\030\003 \003(\0132\021.print.Resolutio" +
+      "n\"E\n\rPrintServices\022\014\n\004name\030\001 \003(\t\022&\n\014prin" +
+      "tService\030\002 \003(\0132\020.print.PrintServ2\206\001\n\022Ser",
+      "verPrintService\0228\n\020GetPrintServices\022\014.pr" +
+      "int.Empty\032\024.print.PrintServices\"\000\0226\n\005Pri" +
+      "nt\022\023.print.PrintContent\032\024.print.PrintRes" +
+      "ponse\"\000(\001B\023\n\021com.solvaig.printb\006proto3"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -3874,12 +6549,30 @@ public final class Print {
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_print_Empty_descriptor,
         new java.lang.String[] { });
-    internal_static_print_PrintServices_descriptor =
+    internal_static_print_PageSize_descriptor =
       getDescriptor().getMessageTypes().get(5);
+    internal_static_print_PageSize_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessage.FieldAccessorTable(
+        internal_static_print_PageSize_descriptor,
+        new java.lang.String[] { "Label", "WidthMils", "HeightMils", "IsDefault", });
+    internal_static_print_Resolution_descriptor =
+      getDescriptor().getMessageTypes().get(6);
+    internal_static_print_Resolution_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessage.FieldAccessorTable(
+        internal_static_print_Resolution_descriptor,
+        new java.lang.String[] { "HorizontalDpi", "VerticalDpi", "IsDefault", });
+    internal_static_print_PrintServ_descriptor =
+      getDescriptor().getMessageTypes().get(7);
+    internal_static_print_PrintServ_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessage.FieldAccessorTable(
+        internal_static_print_PrintServ_descriptor,
+        new java.lang.String[] { "Name", "PageSize", "Resolution", });
+    internal_static_print_PrintServices_descriptor =
+      getDescriptor().getMessageTypes().get(8);
     internal_static_print_PrintServices_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_print_PrintServices_descriptor,
-        new java.lang.String[] { "Name", });
+        new java.lang.String[] { "Name", "PrintService", });
   }
 
   // @@protoc_insertion_point(outer_class_scope)
