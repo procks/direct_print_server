@@ -100,6 +100,8 @@ Source: "Files\PrintServer.jar"; DestDir: "{app}"; Flags: ignoreversion
 Source: "Files\prunmgr.exe"; DestDir: "{app}"; Flags: ignoreversion
 Source: "Files\prunsrv.exe"; DestDir: "{app}"; Flags: ignoreversion
 Source: "Files\uninstall.cmd"; DestDir: "{app}"; Flags: ignoreversion
+Source: "Files\jre-8u73-windows-i586-iftw.exe"; DestDir: "{tmp}"; DestName: "JREInstall.exe"; Check: InstallJava();
+
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
 
 [Components]
@@ -126,6 +128,7 @@ Name: "{commonstartup}\{#MyAppName}"; Filename: "{app}\start.cmd"; Components: a
 Name: "{commondesktop}\{cm:Start, {#MyAppName}}"; Filename: "{app}\start.cmd"; Components: not autostart\service; Tasks: desktopicon
 
 [Run]
+Filename: "{tmp}\JREInstall.exe"; Parameters: "/s"; Flags: runascurrentuser; Check: InstallJava()
 Filename: "{app}\install.cmd"; Parameters: "{code:GetUserName} {code:GetPassword}"; WorkingDir: "{app}"; Flags: runhidden; StatusMsg: "{cm:InstallingService}"; Components: autostart\service
 Filename: "{app}\start.cmd"; WorkingDir: "{app}"; Flags: runhidden; Components: autostart\sturtup
 
@@ -286,4 +289,75 @@ begin
         DelTree(ExpandConstant('{userappdata}\DirectPrintServiceLogs'), True, True, True);
       end;
   end;
+end;
+
+
+procedure DecodeVersion (verstr: String; var verint: array of Integer);
+var
+  i,p: Integer; s: string;
+begin
+  // initialize array
+  verint := [0,0,0,0];
+  i := 0;
+  while ((Length(verstr) > 0) and (i < 4)) do
+  begin
+    p := pos ('.', verstr);
+    if p > 0 then
+    begin
+      if p = 1 then s:= '0' else s:= Copy (verstr, 1, p - 1);
+      verint[i] := StrToInt(s);
+      i := i + 1;
+      verstr := Copy (verstr, p+1, Length(verstr));
+    end
+    else
+    begin
+      verint[i] := StrToInt (verstr);
+      verstr := '';
+    end;
+  end;
+
+end;
+
+function CompareVersion (ver1, ver2: String) : Integer;
+var
+  verint1, verint2: array of Integer;
+  i: integer;
+begin
+
+  SetArrayLength (verint1, 4);
+  DecodeVersion (ver1, verint1);
+
+  SetArrayLength (verint2, 4);
+  DecodeVersion (ver2, verint2);
+
+  Result := 0; i := 0;
+  while ((Result = 0) and ( i < 4 )) do
+  begin
+    if verint1[i] > verint2[i] then
+      Result := 1
+    else
+      if verint1[i] < verint2[i] then
+        Result := -1
+      else
+        Result := 0;
+    i := i + 1;
+  end;
+end;
+
+function InstallJava() : Boolean;
+var
+  ErrCode: Integer;
+  JVer: String;
+  InstallJ: Boolean;
+begin
+  RegQueryStringValue(HKLM, 'SOFTWARE\JavaSoft\Java Runtime Environment', 'CurrentVersion', JVer);
+  InstallJ := true;
+  if Length( JVer ) > 0 then
+  begin
+    if CompareVersion(JVer, '1.6') >= 0 then
+    begin
+      InstallJ := false;
+    end;
+  end;
+  Result := InstallJ;
 end;
