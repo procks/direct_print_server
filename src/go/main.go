@@ -37,20 +37,20 @@ func main() {
 
 	cmd := strings.ToLower(os.Args[1])
 	switch cmd {
-	case "debug":
+	case "start":
 		runService(svcName, true)
 		return
-	case "install":
+	case "install_s":
 		err = installService(svcName, "Direct Print Server")
-	case "remove":
+	case "remove_s":
 		err = removeService(svcName)
-	case "start":
+	case "start_s":
 		err = startService(svcName)
-	case "stop":
+	case "stop_s":
 		err = controlService(svcName, svc.Stop, svc.Stopped)
-	case "pause":
+	case "pause_s":
 		err = controlService(svcName, svc.Pause, svc.Paused)
-	case "continue":
+	case "continue_s":
 		err = controlService(svcName, svc.Continue, svc.Running)
 	default:
 		usage(fmt.Sprintf("invalid command %s", cmd))

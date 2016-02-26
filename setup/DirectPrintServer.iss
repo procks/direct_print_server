@@ -2,7 +2,7 @@
 ; SEE THE DOCUMENTATION FOR DETAILS ON CREATING INNO SETUP SCRIPT FILES!
 
 #define MyAppName "Direct Print Server"
-#define MyAppVersion "0.1-alpha.5"
+#define MyAppVersion "0.1-alpha.7"
 #define MyAppPublisher "JSC Solvaig"
 #define MyAppURL "https://github.com/procks/direct_print_server"
 
@@ -26,6 +26,7 @@ OutputBaseFilename=DirectPrintServerSetup
 Compression=lzma
 SolidCompression=yes
 DisableWelcomePage=no
+CloseApplications=force
 
 [Languages]
 Name: "en"; MessagesFile: "compiler:Default.isl"
@@ -88,19 +89,10 @@ uk.Start=Start %1
 uk.Stop=Stop %1
 
 [Files]
-Source: "Files\prunsrv.exe"; DestDir: "{app}"; Flags: ignoreversion
 Source: "Files\gsdll32.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "Files\gswin32c.exe"; DestDir: "{app}"; Flags: ignoreversion
-Source: "Files\start.cmd"; DestDir: "{app}"; Flags: ignoreversion
-Source: "Files\stop.cmd"; DestDir: "{app}"; Flags: ignoreversion
-Source: "Files\install.cmd"; DestDir: "{app}"; Flags: ignoreversion
-Source: "Files\install_ex.cmd"; DestDir: "{app}"; Flags: ignoreversion
 Source: "Files\LICENSE.txt"; DestDir: "{app}"; Flags: ignoreversion
-Source: "Files\PrintServer.jar"; DestDir: "{app}"; Flags: ignoreversion
-Source: "Files\prunmgr.exe"; DestDir: "{app}"; Flags: ignoreversion
-Source: "Files\prunsrv.exe"; DestDir: "{app}"; Flags: ignoreversion
-Source: "Files\uninstall.cmd"; DestDir: "{app}"; Flags: ignoreversion
-Source: "Files\jre-8u73-windows-i586-iftw.exe"; DestDir: "{tmp}"; DestName: "JREInstall.exe"; Check: InstallJava();
+Source: "Files\DirectPrintServer.exe"; DestDir: "{app}"; Flags: ignoreversion
 
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
 
@@ -116,248 +108,20 @@ Name: desktopicon; Description: "Create a &desktop icon"; GroupDescription: "Add
 
 [Icons]
 Name: "{group}\{cm:UninstallProgram,{#MyAppName}}"; Filename: "{uninstallexe}"
-Name: "{group}\{cm:Configure,{#MyAppName}}"; Filename: "{app}\prunmgr.exe"; Parameters: "//ES//DirectPrintService"
-Name: "{group}\{cm:Monitor,{#MyAppName}}"; Filename: "{app}\prunmgr.exe"; Parameters: "//MS//DirectPrintService"
-;Name: "{group}\{cm:Start,{#MyAppName}}"; Filename: "{app}\prunsrv.exe"; Parameters: "//RS//DirectPrintService"; WorkingDir: "{app}"
-Name: "{group}\{cm:StartService,{#MyAppName}}"; Filename: "{app}\prunmgr.exe"; Parameters: "//MR//DirectPrintService";
-Name: "{group}\{cm:StopService,{#MyAppName}}"; Filename: "{app}\prunsrv.exe"; Parameters: "//SS//DirectPrintService"
-Name: "{group}\{cm:Start, {#MyAppName}}"; Filename: "{app}\start.cmd"; Components: not autostart\service
-Name: "{group}\{cm:Stop, {#MyAppName}}"; Filename: "{app}\stop.cmd"; Components: not autostart\service
-;Name: "{commonstartup}\{#MyAppName}"; Filename: "javaw -jar"; Parameters: "{app}\PrintServer.jar"; Components: autostart\sturtup
-Name: "{commonstartup}\{#MyAppName}"; Filename: "{app}\start.cmd"; Components: autostart\sturtup
-Name: "{commondesktop}\{cm:Start, {#MyAppName}}"; Filename: "{app}\start.cmd"; Components: not autostart\service; Tasks: desktopicon
+Name: "{group}\{cm:StartService,{#MyAppName}}"; Filename: "{app}\DirectPrintServer.exe"; Parameters: "start_s"
+Name: "{group}\{cm:StopService,{#MyAppName}}"; Filename: "{app}\DirectPrintServer.exe"; Parameters: "stop_s"
+Name: "{group}\{cm:Start,{#MyAppName}}"; Filename: "{app}\DirectPrintServer.exe"; Parameters: "start"; Components: not autostart\service
+Name: "{group}\{cm:Stop,{#MyAppName}}"; Filename: "taskkill"; Parameters: "/f /im DirectPrintServer.exe"; Components: not autostart\service
+Name: "{commonstartup}\{#MyAppName}"; Filename: "{app}\DirectPrintServer.exe"; Parameters: "start"; Components: autostart\sturtup
+Name: "{commondesktop}\{cm:Start, {#MyAppName}}"; Filename: "{app}\DirectPrintServer.exe"; Parameters: "start"; Components: not autostart\service; Tasks: desktopicon
 
 [Run]
-Filename: "{tmp}\JREInstall.exe"; Parameters: "/s"; Flags: runascurrentuser; Check: InstallJava()
-Filename: "{app}\install.cmd"; Parameters: "{code:GetUserName} {code:GetPassword}"; WorkingDir: "{app}"; Flags: runhidden; StatusMsg: "{cm:InstallingService}"; Components: autostart\service
-Filename: "{app}\start.cmd"; WorkingDir: "{app}"; Flags: runhidden; Components: autostart\sturtup
+Filename: "netsh"; Parameters: "firewall add portopening TCP 9188 ""Direct Print Service"" ENABLE ALL"; Flags: runhidden
+Filename: "netsh"; Parameters: "firewall add portopening UDP 9188 ""Direct Print Service"" ENABLE ALL"; Flags: runhidden
+Filename: "{app}\DirectPrintServer.exe"; Parameters: "install_s"; WorkingDir: "{app}"; Flags: runhidden; StatusMsg: "{cm:InstallingService}"; Components: autostart\service
+Filename: "{app}\DirectPrintServer.exe"; Parameters: "start_s"; WorkingDir: "{app}"; Flags: runhidden; StatusMsg: "{cm:InstallingService}"; Components: autostart\service
+Filename: "{app}\DirectPrintServer.exe"; Parameters: "start"; WorkingDir: "{app}"; Flags: runasoriginaluser runhidden nowait; Components: autostart\sturtup
 
 [UninstallRun]
-Filename: "{app}\uninstall.cmd"; WorkingDir: "{app}"; Flags: runhidden; StatusMsg: "{cm:UninstallingService}"
-
-[Code]
-var
-  Page: TInputQueryWizardPage;
-  LocalSystemAccountCheckBox: TNewCheckBox;
-  //LabelFolder: TLabel;
-  UserEdit: TNewEdit;
-  PassEdit: TNewEdit;
-  ConfPassEdit: TNewEdit;
-  UserStaticText: TNewStaticText;
-  PassStaticText: TNewStaticText;
-  ConfPassStaticText: TNewStaticText;
-
-procedure LocalSystemAccountCheckBoxOnClick(Sender: TObject);
-begin
-  if LocalSystemAccountCheckBox.Checked then begin
-    UserStaticText.Enabled := false;
-    UserEdit.Enabled := false;
-    PassStaticText.Enabled := false;
-    PassEdit.Enabled := false;
-    ConfPassStaticText.Enabled := false;
-    ConfPassEdit.Enabled := false;
-  end
-  else begin
-    UserStaticText.Enabled := true;
-    UserEdit.Enabled := true;
-    PassStaticText.Enabled := true;
-    PassEdit.Enabled := true;
-    ConfPassStaticText.Enabled := true;
-    ConfPassEdit.Enabled := true;
-  end;
-end;
-
-procedure InitializeWizard;
-begin
-  Page := CreateInputQueryPage(wpSelectComponents, //,wpWelcome
-  CustomMessage('ServiceAccountInformation'), CustomMessage('EnterAccountInformation'), '');
-
-  LocalSystemAccountCheckBox := TNewCheckBox.Create(Page);
-  LocalSystemAccountCheckBox.Parent := Page.Surface;
-  LocalSystemAccountCheckBox.Width := Page.SurfaceWidth - ScaleX(8);
-  LocalSystemAccountCheckBox.Caption := CustomMessage('LocalSystemAccount');
-  LocalSystemAccountCheckBox.Checked := true;
-  LocalSystemAccountCheckBox.OnClick := @LocalSystemAccountCheckBoxOnClick;
-
-  UserStaticText := TNewStaticText.Create(Page);
-  UserStaticText.Top := LocalSystemAccountCheckBox.Top + LocalSystemAccountCheckBox.Height + ScaleY(12);
-  UserStaticText.Caption := CustomMessage('User');
-  UserStaticText.AutoSize := True;
-  UserStaticText.Parent := Page.Surface;
-  UserStaticText.Enabled := false;
-
-  UserEdit := TNewEdit.Create(Page);
-  UserEdit.Parent := Page.Surface;
-  UserEdit.Top := LocalSystemAccountCheckBox.Top + LocalSystemAccountCheckBox.Height + ScaleY(8);
-  UserEdit.Left := ScaleX(130);
-  UserEdit.Width := ScaleX(200);
-  UserEdit.Enabled := false;
-
-  PassStaticText := TNewStaticText.Create(Page);
-  PassStaticText.Top := UserEdit.Top + UserEdit.Height + ScaleY(12);
-  PassStaticText.Caption := CustomMessage('Password');
-  PassStaticText.AutoSize := True;
-  PassStaticText.Parent := Page.Surface;
-  PassStaticText.Enabled := false;
-
-  PassEdit := TNewEdit.Create(Page);
-  PassEdit.Parent := Page.Surface;
-  PassEdit.Top := UserEdit.Top + UserEdit.Height + ScaleY(8);
-  PassEdit.Left := UserEdit.Left;
-  PassEdit.Width := UserEdit.Width;
-  PassEdit.PasswordChar := '*';
-  PassEdit.Enabled := false;
-
-  ConfPassStaticText := TNewStaticText.Create(Page);
-  ConfPassStaticText.Top := PassEdit.Top + PassEdit.Height + ScaleY(12);
-  ConfPassStaticText.Caption := CustomMessage('ConfirmPassword');
-  ConfPassStaticText.AutoSize := True;
-  ConfPassStaticText.Parent := Page.Surface;
-  ConfPassStaticText.Enabled := false;
-
-  ConfPassEdit := TNewEdit.Create(Page);
-  ConfPassEdit.Parent := Page.Surface;
-  ConfPassEdit.Top := PassEdit.Top + PassEdit.Height + ScaleY(8);
-  ConfPassEdit.Left := UserEdit.Left;
-  ConfPassEdit.Width := UserEdit.Width;
-  ConfPassEdit.PasswordChar := '*';
-  ConfPassEdit.Enabled := false;
-end;
-
-function ShouldSkipPage(PageID: Integer): Boolean;
-begin
-  // initialize result to not skip any page (not necessary, but safer)
-  Result := False;
-  // if the page that is asked to be skipped is your custom page, then...
-  if PageID = Page.ID then
-    // if the component is not selected, skip the page
-    Result := not IsComponentSelected('autostart\service');
-end;
-
-function NextButtonClick(CurPageID: Integer): Boolean;
-//var
-//  ResultCode: Integer;
-begin 
-  Result := true;
-//  Log('NextButtonClick(' + IntToStr(CurPageID) + ') called');
-  case CurPageID of
-    Page.ID: begin
-      if not LocalSystemAccountCheckBox.Checked then begin
-        if UserEdit.Text = '' then begin
-          Result := false;
-          MsgBox(CustomMessage('PleaseEnterUser'), mbInformation, MB_OK);
-          exit;
-        end;
-        if PassEdit.Text = '' then begin
-          Result := false;
-          MsgBox(CustomMessage('PleaseEnterPass'), mbInformation, MB_OK);
-          exit;
-        end;
-        if not (ConfPassEdit.Text = PassEdit.Text) then begin
-          Result := false;
-          MsgBox(CustomMessage('PasswordNotMatch'), mbInformation, MB_OK);
-          exit;
-        end;
-      end;
-    end;
-  end;
-end;
-
-function GetUserName(Param: String): string;
-begin
-  if not (UserEdit.Text = '') then
-    result := '.\' + UserEdit.Text
-  else
-    result := '';
-end;
-
-function GetPassword(Param: String): string;
-begin
-  result := PassEdit.Text;
-end;
-
-procedure CurUninstallStepChanged (CurUninstallStep: TUninstallStep);
-//var
-//  mres : integer;
-//  ResultCode: Integer;
-begin
-  case CurUninstallStep of
-    usPostUninstall:
-      begin
-//        mres := MsgBox('Do you want to delete saved files?', mbConfirmation, MB_YESNO or MB_DEFBUTTON2)
-//        if mres = IDYES then
-        DelTree(ExpandConstant('{userappdata}\DirectPrintServiceLogs'), True, True, True);
-      end;
-  end;
-end;
-
-
-procedure DecodeVersion (verstr: String; var verint: array of Integer);
-var
-  i,p: Integer; s: string;
-begin
-  // initialize array
-  verint := [0,0,0,0];
-  i := 0;
-  while ((Length(verstr) > 0) and (i < 4)) do
-  begin
-    p := pos ('.', verstr);
-    if p > 0 then
-    begin
-      if p = 1 then s:= '0' else s:= Copy (verstr, 1, p - 1);
-      verint[i] := StrToInt(s);
-      i := i + 1;
-      verstr := Copy (verstr, p+1, Length(verstr));
-    end
-    else
-    begin
-      verint[i] := StrToInt (verstr);
-      verstr := '';
-    end;
-  end;
-
-end;
-
-function CompareVersion (ver1, ver2: String) : Integer;
-var
-  verint1, verint2: array of Integer;
-  i: integer;
-begin
-
-  SetArrayLength (verint1, 4);
-  DecodeVersion (ver1, verint1);
-
-  SetArrayLength (verint2, 4);
-  DecodeVersion (ver2, verint2);
-
-  Result := 0; i := 0;
-  while ((Result = 0) and ( i < 4 )) do
-  begin
-    if verint1[i] > verint2[i] then
-      Result := 1
-    else
-      if verint1[i] < verint2[i] then
-        Result := -1
-      else
-        Result := 0;
-    i := i + 1;
-  end;
-end;
-
-function InstallJava() : Boolean;
-var
-  ErrCode: Integer;
-  JVer: String;
-  InstallJ: Boolean;
-begin
-  RegQueryStringValue(HKLM, 'SOFTWARE\JavaSoft\Java Runtime Environment', 'CurrentVersion', JVer);
-  InstallJ := true;
-  if Length( JVer ) > 0 then
-  begin
-    if CompareVersion(JVer, '1.6') >= 0 then
-    begin
-      InstallJ := false;
-    end;
-  end;
-  Result := InstallJ;
-end;
+Filename: "{app}\DirectPrintServer.exe"; Parameters: "remove_s"; WorkingDir: "{app}"; Flags: runhidden; StatusMsg: "{cm:UninstallingService}"
+Filename: "taskkill"; Parameters: "/f /im DirectPrintServer.exe"; Flags: runhidden
