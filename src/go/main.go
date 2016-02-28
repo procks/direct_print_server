@@ -20,6 +20,10 @@ func usage(errmsg string) {
 }
 
 func main() {
+	if len(os.Args) < 2 {
+		runApp()
+		return
+	}
 	const svcName = "DirectPrintServer"
 
 	isIntSess, err := svc.IsAnInteractiveSession()
@@ -37,8 +41,11 @@ func main() {
 
 	cmd := strings.ToLower(os.Args[1])
 	switch cmd {
-	case "start":
+	case "debug":
 		runService(svcName, true)
+		return
+	case "start":
+		runApp()
 		return
 	case "install_s":
 		err = installService(svcName, "Direct Print Server")

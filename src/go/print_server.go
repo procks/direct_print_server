@@ -3,6 +3,9 @@ package main
 import (
 	pb "github.com/procks/direct_print_server/src/go/print"
 	"github.com/procks/printer"
+
+	"github.com/lxn/walk"
+
 	"log"
 	"net"
 	"bytes"
@@ -22,6 +25,16 @@ const (
 	port = ":9188"
 )
 
+var (
+	printServer *grpc.Server
+	discoveryServerConn *net.UDPConn
+	stoped bool
+	startAction *walk.Action
+	notifyIcon *walk.NotifyIcon
+	iconPlay *walk.Icon
+	iconStop *walk.Icon
+)
+
 func CheckError(err error) {
 	if err  != nil {
 		fmt.Println("Error: " , err)
@@ -34,20 +47,23 @@ func discovery() {
 	CheckError(err)
 
 	/* Now listen at selected port */
-	ServerConn, err := net.ListenUDP("udp", ServerAddr)
+	discoveryServerConn, err = net.ListenUDP("udp", ServerAddr)
 	CheckError(err)
 
-	defer ServerConn.Close()
+	//defer discoveryServerConn.Close() // closed in stop func
 	buf := make([]byte, 1024)
 	for {
-		n, addr, err := ServerConn.ReadFromUDP(buf)
+		if stoped {
+			break
+		}
+		n, addr, err := discoveryServerConn.ReadFromUDP(buf)
 		fmt.Println("Received ", string(buf[0 : n]), " from ", addr)
 		if err != nil {
 			fmt.Println("Error: ", err)
 		}
 		if bytes.Equal([]byte("DISCOVER_PRINT_SERVER_REQUEST"), buf[0 : n]) {
 			response := []byte("DISCOVER_PRINT_SERVER_RESPONSE")
-			n, err = ServerConn.WriteToUDP(response, addr);
+			n, err = discoveryServerConn.WriteToUDP(response, addr);
 			if err != nil {
 				fmt.Println("Error: ", err)
 			}
@@ -129,13 +145,6 @@ func (s *server) GetPrintServices(ctx context.Context, in *pb.Empty) (*pb.PrintS
 	return &pb.PrintServices{Name: names, PrintService: printServs}, err
 }
 
-func run(cmd *exec.Cmd) {
-	err := cmd.Run()
-	if err != nil {
-		log.Fatal(err)
-	}
-}
-
 func (s *server) Print(stream pb.ServerPrintService_PrintServer) error {
 	var cmd *exec.Cmd = nil
 	var out bytes.Buffer
@@ -167,7 +176,12 @@ func (s *server) Print(stream pb.ServerPrintService_PrintServer) error {
 			cmd.Stdin = dataReader
 			cmd.Stdout = &out
 			cmd.SysProcAttr = &syscall.SysProcAttr{HideWindow: true}
-			go run(cmd)
+			go func(cmd *exec.Cmd) {
+				err := cmd.Run()
+				if err != nil {
+					log.Fatal(err)
+				}
+			}(cmd)
 		}
 		if x, ok := content.GetPrintContentType().(*pb.PrintContent_Content); ok {
 			if cmd != nil && cmd.Stdin != nil {
@@ -179,13 +193,113 @@ func (s *server) Print(stream pb.ServerPrintService_PrintServer) error {
 }
 
 func start_print_server() {
-	go discovery()
-
 	lis, err := net.Listen("tcp", port)
 	if err != nil {
 		log.Fatalf("failed to listen: %v", err)
 	}
-	s := grpc.NewServer()
-	pb.RegisterServerPrintServiceServer(s, &server{})
-	s.Serve(lis)
+
+	printServer = grpc.NewServer()
+	pb.RegisterServerPrintServiceServer(printServer, &server{})
+	printServer.Serve(lis)
+}
+
+func runNotify() {
+	// We need either a walk.MainWindow or a walk.Dialog for their message loop.
+	// We will not make it visible in this example, though.
+	mw, err := walk.NewMainWindow()
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	// We load our icon from a file.
+	iconPlay, err = walk.NewIconFromFile("play.ico")
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	// We load our icon from a file.
+	iconStop, err = walk.NewIconFromFile("stop.ico")
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	// Create the notify icon and make sure we clean it up on exit.
+	notifyIcon, err = walk.NewNotifyIcon()
+	if err != nil {
+		log.Fatal(err)
+	}
+	defer notifyIcon.Dispose()
+
+	if err := notifyIcon.SetToolTip("Direct Print Server"); err != nil {
+		log.Fatal(err)
+	}
+
+	// We put an exit action into the context menu.
+	startAction = walk.NewAction()
+	startAction.Triggered().Attach(func() {
+		if stoped {
+			start()
+		} else {
+			stop()
+		}
+	})
+	if err := notifyIcon.ContextMenu().Actions().Add(startAction); err != nil {
+		log.Fatal(err)
+	}
+
+	// We put an exit action into the context menu.
+	exitAction := walk.NewAction()
+	if err := exitAction.SetText("E&xit"); err != nil {
+		log.Fatal(err)
+	}
+	exitAction.Triggered().Attach(func() {
+		//stop()
+		walk.App().Exit(0)
+	})
+	if err := notifyIcon.ContextMenu().Actions().Add(exitAction); err != nil {
+		log.Fatal(err)
+	}
+
+	// The notify icon is hidden initially, so we have to make it visible.
+	if err := notifyIcon.SetVisible(true); err != nil {
+		log.Fatal(err)
+	}
+
+	start()
+	// Run the message loop.
+	mw.Run()
+}
+
+func stop() {
+	stoped = true
+
+	if err := startAction.SetText("Start"); err != nil {
+		log.Fatal(err)
+	}
+	// Set the icon and a tool tip text.
+	if err := notifyIcon.SetIcon(iconStop); err != nil {
+		log.Fatal(err)
+	}
+
+	discoveryServerConn.Close()
+	printServer.Stop()
+}
+
+func start() {
+	stoped = false
+
+	if err := startAction.SetText("Stop"); err != nil {
+		log.Fatal(err)
+	}
+	// Set the icon and a tool tip text.
+	if err := notifyIcon.SetIcon(iconPlay); err != nil {
+		log.Fatal(err)
+	}
+
+	go start_print_server()
+	go discovery()
+}
+
+func runApp() {
+	runNotify()
 }

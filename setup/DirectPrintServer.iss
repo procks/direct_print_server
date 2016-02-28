@@ -93,6 +93,10 @@ Source: "Files\gsdll32.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "Files\gswin32c.exe"; DestDir: "{app}"; Flags: ignoreversion
 Source: "Files\LICENSE.txt"; DestDir: "{app}"; Flags: ignoreversion
 Source: "Files\DirectPrintServer.exe"; DestDir: "{app}"; Flags: ignoreversion
+Source: "Files\DirectPrintServer.exe.manifest"; DestDir: "{app}"; Flags: ignoreversion
+Source: "Files\stop.ico"; DestDir: "{app}"; Flags: ignoreversion
+Source: "Files\play.ico"; DestDir: "{app}"; Flags: ignoreversion
+Source: "Files\printer.ico"; DestDir: "{app}"; Flags: ignoreversion
 
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
 
@@ -108,19 +112,18 @@ Name: desktopicon; Description: "Create a &desktop icon"; GroupDescription: "Add
 
 [Icons]
 Name: "{group}\{cm:UninstallProgram,{#MyAppName}}"; Filename: "{uninstallexe}"
-Name: "{group}\{cm:StartService,{#MyAppName}}"; Filename: "{app}\DirectPrintServer.exe"; Parameters: "start_s"
-Name: "{group}\{cm:StopService,{#MyAppName}}"; Filename: "{app}\DirectPrintServer.exe"; Parameters: "stop_s"
-Name: "{group}\{cm:Start,{#MyAppName}}"; Filename: "{app}\DirectPrintServer.exe"; Parameters: "start"; Components: not autostart\service
-Name: "{group}\{cm:Stop,{#MyAppName}}"; Filename: "taskkill"; Parameters: "/f /im DirectPrintServer.exe"; Components: not autostart\service
-Name: "{commonstartup}\{#MyAppName}"; Filename: "{app}\DirectPrintServer.exe"; Parameters: "start"; Components: autostart\sturtup
-Name: "{commondesktop}\{cm:Start, {#MyAppName}}"; Filename: "{app}\DirectPrintServer.exe"; Parameters: "start"; Components: not autostart\service; Tasks: desktopicon
+;Name: "{group}\{cm:StartService,{#MyAppName}}"; Filename: "{app}\DirectPrintServer.exe"; IconFilename: {app}\printer.ico; Parameters: "start_s"; Components: not autostart\sturtup
+;Name: "{group}\{cm:StopService,{#MyAppName}}"; Filename: "{app}\DirectPrintServer.exe"; IconFilename: {app}\printer.ico; Parameters: "stop_s"; Components: not autostart\sturtup
+Name: "{group}\{#MyAppName}"; Filename: "{app}\DirectPrintServer.exe"; IconFilename: {app}\printer.ico; Components: not autostart\service
+Name: "{commonstartup}\{#MyAppName}"; Filename: "{app}\DirectPrintServer.exe"; IconFilename: {app}\printer.ico; Components: autostart\sturtup
+Name: "{commondesktop}\{#MyAppName}"; Filename: "{app}\DirectPrintServer.exe"; IconFilename: {app}\printer.ico; Components: not autostart\service; Tasks: desktopicon
 
 [Run]
 Filename: "netsh"; Parameters: "firewall add portopening TCP 9188 ""Direct Print Service"" ENABLE ALL"; Flags: runhidden
 Filename: "netsh"; Parameters: "firewall add portopening UDP 9188 ""Direct Print Service"" ENABLE ALL"; Flags: runhidden
 Filename: "{app}\DirectPrintServer.exe"; Parameters: "install_s"; WorkingDir: "{app}"; Flags: runhidden; StatusMsg: "{cm:InstallingService}"; Components: autostart\service
 Filename: "{app}\DirectPrintServer.exe"; Parameters: "start_s"; WorkingDir: "{app}"; Flags: runhidden; StatusMsg: "{cm:InstallingService}"; Components: autostart\service
-Filename: "{app}\DirectPrintServer.exe"; Parameters: "start"; WorkingDir: "{app}"; Flags: runasoriginaluser runhidden nowait; Components: autostart\sturtup
+Filename: "{app}\DirectPrintServer.exe"; WorkingDir: "{app}"; Flags: runasoriginaluser nowait; Components: autostart\sturtup
 
 [UninstallRun]
 Filename: "{app}\DirectPrintServer.exe"; Parameters: "remove_s"; WorkingDir: "{app}"; Flags: runhidden; StatusMsg: "{cm:UninstallingService}"
