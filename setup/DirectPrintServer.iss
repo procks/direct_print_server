@@ -2,7 +2,7 @@
 ; SEE THE DOCUMENTATION FOR DETAILS ON CREATING INNO SETUP SCRIPT FILES!
 
 #define MyAppName "Direct Print Server"
-#define MyAppVersion "0.1-alpha.7"
+#define MyAppVersion "0.1-alpha.8"
 #define MyAppPublisher "JSC Solvaig"
 #define MyAppURL "https://github.com/procks/direct_print_server"
 
@@ -128,3 +128,42 @@ Filename: "{app}\DirectPrintServer.exe"; WorkingDir: "{app}"; Flags: runasorigin
 [UninstallRun]
 Filename: "{app}\DirectPrintServer.exe"; Parameters: "remove_s"; WorkingDir: "{app}"; Flags: runhidden; StatusMsg: "{cm:UninstallingService}"
 Filename: "taskkill"; Parameters: "/f /im DirectPrintServer.exe"; Flags: runhidden
+
+[Code]
+procedure CurStepChanged(CurStep: TSetupStep);
+var
+  id: string;
+  WinHttpReq: Variant;
+begin
+  if CurStep = ssPostInstall then
+  begin
+    try
+      id := IntToStr(Random(999999));
+      WinHttpReq := CreateOleObject('WinHttp.WinHttpRequest.5.1');
+      WinHttpReq.Open('GET', 'http://www.google-analytics.com/collect?v=1&tid=UA-74107078-1&cid=' + id + '&t=event&ec=Action&ea=Install', false);
+      WinHttpReq.SetRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+      WinHttpReq.Send();
+      // WinHttpReq.ResponseText will hold the server response
+    except
+    end;
+  end;
+end;
+
+procedure CurUninstallStepChanged(CurUninstallStep: TUninstallStep);
+var
+  id: string;
+  WinHttpReq: Variant;
+begin
+  if CurUninstallStep = usPostUninstall then
+  begin
+    try
+      id := IntToStr(Random(999999));
+      WinHttpReq := CreateOleObject('WinHttp.WinHttpRequest.5.1');
+      WinHttpReq.Open('GET', 'http://www.google-analytics.com/collect?v=1&tid=UA-74107078-1&cid=' + id + '&t=event&ec=Action&ea=Uninstall', false);
+      WinHttpReq.SetRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+      WinHttpReq.Send();
+      // WinHttpReq.ResponseText will hold the server response
+    except
+    end;
+  end;
+end;
