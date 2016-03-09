@@ -96,10 +96,17 @@ func (s *server) GetPrintServices(ctx context.Context, in *pb.Empty) (*pb.PrintS
 	printServs := make([]*pb.PrintServ, 0) //len(names)
 	for _, name := range names {
 		port, _ := printer.GetPrinterPort(name)
-	 	settings, _ := printer.GetDefaultSettings(name, port)
-		defPaperSize := settings[0]
-		defResolutionX := settings[2]
-		defResolutionY := settings[2]
+	 	settings, err := printer.GetDefaultSettings(name, port)
+
+		log.Printf("GetDefaultSettings err %v", err)
+		var defPaperSize int
+		var defResolutionX int
+		var defResolutionY int
+		if len(settings) >= 3 {
+			defPaperSize = settings[0]
+			defResolutionX = settings[2]
+			defResolutionY = settings[2]
+		}
 
 		mediaNames, _ := printer.GetAllMediaNames(name, port)
 		mediaSizes, _ := printer.GetAllMediaSizes(name, port)
