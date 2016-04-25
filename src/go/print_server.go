@@ -170,7 +170,7 @@ func (s *server) Print(stream pb.ServerPrintService_PrintServer) error {
 		if x, ok := content.GetPrintContentType().(*pb.PrintContent_PrintInfo); ok {
 			dir, err := filepath.Abs(filepath.Dir(os.Args[0]))
 			if err != nil {
-				log.Fatal(err)
+				log.Print(err)
 			}
 			cmd = exec.Command(path.Join(dir, "gswin32c.exe"),
 				"-dNOPAUSE", "-dBATCH", "-sDEVICE=mswinpr2",
@@ -186,7 +186,7 @@ func (s *server) Print(stream pb.ServerPrintService_PrintServer) error {
 			go func(cmd *exec.Cmd) {
 				err := cmd.Run()
 				if err != nil {
-					log.Fatal(err)
+					log.Print(err)
 				}
 			}(cmd)
 		}
@@ -202,7 +202,7 @@ func (s *server) Print(stream pb.ServerPrintService_PrintServer) error {
 func start_print_server() {
 	lis, err := net.Listen("tcp", port)
 	if err != nil {
-		log.Fatalf("failed to listen: %v", err)
+		log.Printf("failed to listen: %v", err)
 	}
 
 	printServer = grpc.NewServer()
@@ -215,30 +215,30 @@ func runNotify() {
 	// We will not make it visible in this example, though.
 	mw, err := walk.NewMainWindow()
 	if err != nil {
-		log.Fatal(err)
+		log.Print(err)
 	}
 
 	// We load our icon from a file.
 	iconPlay, err = walk.NewIconFromFile("play.ico")
 	if err != nil {
-		log.Fatal(err)
+		log.Print(err)
 	}
 
 	// We load our icon from a file.
 	iconStop, err = walk.NewIconFromFile("stop.ico")
 	if err != nil {
-		log.Fatal(err)
+		log.Print(err)
 	}
 
 	// Create the notify icon and make sure we clean it up on exit.
 	notifyIcon, err = walk.NewNotifyIcon()
 	if err != nil {
-		log.Fatal(err)
+		log.Print(err)
 	}
 	defer notifyIcon.Dispose()
 
 	if err := notifyIcon.SetToolTip("Direct Print Server"); err != nil {
-		log.Fatal(err)
+		log.Print(err)
 	}
 
 	// We put an exit action into the context menu.
@@ -251,25 +251,25 @@ func runNotify() {
 		}
 	})
 	if err := notifyIcon.ContextMenu().Actions().Add(startAction); err != nil {
-		log.Fatal(err)
+		log.Print(err)
 	}
 
 	// We put an exit action into the context menu.
 	exitAction := walk.NewAction()
 	if err := exitAction.SetText("E&xit"); err != nil {
-		log.Fatal(err)
+		log.Print(err)
 	}
 	exitAction.Triggered().Attach(func() {
 		//stop()
 		walk.App().Exit(0)
 	})
 	if err := notifyIcon.ContextMenu().Actions().Add(exitAction); err != nil {
-		log.Fatal(err)
+		log.Print(err)
 	}
 
 	// The notify icon is hidden initially, so we have to make it visible.
 	if err := notifyIcon.SetVisible(true); err != nil {
-		log.Fatal(err)
+		log.Print(err)
 	}
 
 	start()
@@ -281,11 +281,11 @@ func stop() {
 	stoped = true
 
 	if err := startAction.SetText("Start"); err != nil {
-		log.Fatal(err)
+		log.Print(err)
 	}
 	// Set the icon and a tool tip text.
 	if err := notifyIcon.SetIcon(iconStop); err != nil {
-		log.Fatal(err)
+		log.Print(err)
 	}
 
 	discoveryServerConn.Close()
@@ -296,11 +296,11 @@ func start() {
 	stoped = false
 
 	if err := startAction.SetText("Stop"); err != nil {
-		log.Fatal(err)
+		log.Print(err)
 	}
 	// Set the icon and a tool tip text.
 	if err := notifyIcon.SetIcon(iconPlay); err != nil {
-		log.Fatal(err)
+		log.Print(err)
 	}
 
 	go start_print_server()
